@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BicycleStore.BikesDatabase\BicycleStore.BikesDatabase.csproj" />
-    <ProjectReference Include="..\BicycleStore.BLL\BicycleStore.BLL.csproj" />
     <ProjectReference Include="..\BicycleStore.Core\BicycleStore.Core.csproj" />
     <ProjectReference Include="..\BicycleStore.Identity\BicycleStore.Identity.csproj" />
   </ItemGroup>
