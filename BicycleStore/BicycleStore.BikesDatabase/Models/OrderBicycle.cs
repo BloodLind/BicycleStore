@@ -23,7 +23,7 @@ namespace BicycleStore.BikesDatabase.Models
 
         public virtual Bicycle  Bicycle{set;get;}
         public virtual Order Order { set; get; }
-        public int CountBicycles { set; get; }
+        public int CountBicycles { set; get; } = 1;
 
 
 

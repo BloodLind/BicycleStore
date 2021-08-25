@@ -2,6 +2,7 @@
 using BicycleStore.Core.Infrastructure.Interfaces;
 using BicycleStore.Web.Extensions;
 using BicycleStore.Web.Models.Cart;
+using BicycleStore.Web.Models.ViewModels.Cart;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,13 +22,27 @@ namespace BicycleStore.Web.Controllers
             bicycleRepository = bicycleRepo;
 
         }
-        public Task<IActionResult>  AddToCart(string id,string rreturnURL)
+
+        public IActionResult Index(string returnUrl)
+        {
+            return View(new CartIndexViewModel() { Cart = GetCart(), ReturnURL = returnUrl });
+        }
+        public IActionResult AddToCart(string id,string returnURL)
         {
             Cart cart = GetCart();
-            Bicycle bicycle = bicycleRepository.Get(id);
-            return View();
+            Bicycle bicycle = bicycleRepository.Get(Guid.Parse(id));
+            cart.AddItem(bicycle);
+            SaveCart(cart);
+            return Redirect(returnURL);
         }
-
+        public IActionResult RemoveFromCart(string id, string returnURL)
+        {
+            Cart cart = GetCart();
+            Bicycle bicycle = bicycleRepository.Get(Guid.Parse(id));
+            cart.Remove(bicycle);
+            SaveCart(cart);
+            return Redirect(returnURL);
+        }
         private void SaveCart(Cart cart)
         {
             HttpContext.Session.SetObjectAsJson("bicycleCart", cart);

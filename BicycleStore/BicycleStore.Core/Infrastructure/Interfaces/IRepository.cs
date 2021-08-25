@@ -8,11 +8,11 @@ namespace BicycleStore.Core.Infrastructure.Interfaces
 {
     public interface IRepository<T> where T : class, IGuidKey, new()
     {
-        T Get(int id);
+        T Get(Guid id);
         IQueryable<T> GetAll();
         void CreateOrUpdate(T entity, Guid id);
         void Delete(T entity);
         void SaveChanges();
-        void Delete(int id);
+        void Delete(Guid id);
     }
 }
