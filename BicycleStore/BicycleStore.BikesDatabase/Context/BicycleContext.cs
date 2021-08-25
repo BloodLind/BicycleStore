@@ -27,9 +27,9 @@ namespace BicycleStore.BikesDatabase.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-           
-            modelBuilder.Entity<Bicycle>().HasMany<OrderBicycle>().WithOne(x=>x.Bicycle).HasForeignKey(x=>x.BicycleId).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Order>().HasMany<OrderBicycle>().WithOne(x => x.Order).HasForeignKey(x => x.BicycleId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<OrderBicycle>().HasKey(x => new { x.OrderId, x.BicycleId });
+
+            
 
         }
 

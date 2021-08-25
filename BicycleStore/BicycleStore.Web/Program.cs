@@ -21,7 +21,7 @@ namespace BicycleStore.Web
             {
                 var services = scope.ServiceProvider;
                 try
-                {
+                { 
                     var context = services.GetRequiredService<BicycleContext>();
                     TestBDData.Initialize(context);
                 }

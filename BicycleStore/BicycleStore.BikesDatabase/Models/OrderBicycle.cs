@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BicycleStore.Core.Infrastructure.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace BicycleStore.BikesDatabase.Models
 {
-    public class OrderBicycle
+    public class OrderBicycle 
     {
 
 
-
-        public int BicycleId { set; get; }
-
+       
+        public Guid BicycleId { set; get; }
+    
 
         
-        public int OrderId { set; get; }
+        public Guid OrderId { set; get; }
 
 
         public virtual Bicycle  Bicycle{set;get;}
