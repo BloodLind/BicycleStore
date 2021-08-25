@@ -5,7 +5,8 @@
 }
 @model BicycleStore.BikesDatabase.Models.Bicycle
 
-<form method="post" class="d-flex flex-column justify-content-center needs-validation justify-items-center ">
+<form asp-action="SaveBicyclesData" asp-controller="Admin" class="d-flex flex-column justify-content-center needs-validation justify-items-center ">
+    @Html.ValidationSummary();
 
     <div>
         <label asp-for="Tittle" class="form-label"></label>
@@ -26,6 +27,13 @@
         <div class="input-group has-validation">
             <input type="text" class="form-control" asp-for="Info">
             <div class="invalid">@Html.ValidationMessageFor(x => x.Info)</div>
+        </div>
+    </div>
+    <div>
+        <label asp-for="Color" class="form-label"></label>
+        <div class="input-group has-validation">
+            <input type="text" class="form-control" asp-for="Color">
+            <div class="invalid">@Html.ValidationMessageFor(x => x.Color)</div>
         </div>
     </div>
     <div>

@@ -28,7 +28,7 @@ namespace BicycleStore.Identity.Repositories
         {
             return roleManager.Roles?.FirstOrDefault(x => x.Name == name);
         }
-        public async Task<IdentityResult> CreateRoleAsync(Role role)
+        public Task<IdentityResult> CreateRoleAsync(Role role)
         {
             return  roleManager.CreateAsync(role);
         }

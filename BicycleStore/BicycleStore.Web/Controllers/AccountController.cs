@@ -57,15 +57,17 @@ namespace BicycleStore.Web.Controllers
             if (ModelState.IsValid)
             {
                 var result = await userRepository.SignInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, loginViewModel.rememberMe, false);
+                
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(loginViewModel.ReturnURL) && Url.IsLocalUrl(loginViewModel.ReturnURL))
                         return Redirect(loginViewModel.ReturnURL);
                     else
-                        RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
                     
                 }
-                ModelState.AddModelError("", "Wrong password or login!");
+                else
+                    ModelState.AddModelError("", "Wrong password or login!");
             }
             return View(loginViewModel);
         }

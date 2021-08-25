@@ -26,8 +26,8 @@ namespace BicycleStore.Web
                 { 
                     var context = services.GetRequiredService<BicycleContext>();
                     TestBDData.Initialize(context);
-                    //var migration = new IdentityUsersMigration(services.GetService<UserRepository>(), services.GetService<RoleRepository>());
-                    //migration.Initializate();
+                    var migration = new IdentityUsersMigration(services.GetService<UserRepository>(), services.GetService<RoleRepository>());
+                    migration.Initializate();
                 }
                 catch (Exception ex)
                 {

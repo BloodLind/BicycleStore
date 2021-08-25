@@ -6,12 +6,10 @@
 @using BicycleStore.BikesDatabase.Models
 @model IEnumerable<Bicycle>
 
-<a class="btn-dark btn" href="~/Admin/CreateOrEdit">Add</a>
-<a class="btn-info btn" href="~/Admin/EditUsers">Edit Roles</a>
+<a class="btn-dark btn" asp-controller="Admin" asp-action="CreateOrEditBicycle">Add</a>
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Tittle</th>
             <th>Model</th>
             <th>Price</th>
@@ -21,7 +19,6 @@
         @foreach (var bicycle in Model)
         {
             <tr>
-                <td>@bicycle.Id</td>
                 <td>@bicycle.Tittle</td>
                 <td>@bicycle.Model</td>
                 <td>@bicycle.Price</td>

@@ -25,30 +25,19 @@ namespace BicycleStore.Core.Repositories
             {
                 Id = id
             };
-            var entry = table.Attach(target);
-
-            if(entry.State != EntityState.Added)
+            if(target.Id != default(Guid))
             {
-                foreach (var property in entry.Properties)
-                {
-                    var original = property.OriginalValue;
-                    var current = property.CurrentValue;
+                var entry = table.Attach(target);
+                foreach (var item in entity.GetType().GetProperties())
+                    entry.Entity.GetType().GetProperty(item.Name).SetValue(entry.Entity, item.GetValue(entity, null), null);
 
-                    if (ReferenceEquals(original, current))
-                    {
-                        continue;
-                    }
-
-                    if (original == null)
-                    {
-                        property.IsModified = true;
-                        continue;
-                    }
-
-                    var propertyIsModified = !original.Equals(current);
-                    property.IsModified = propertyIsModified;
-                }
+                entry.State = EntityState.Modified;
             }
+            
+            else
+                database.Set<T>().Add(entity);
+           
+          
             
         }
 

@@ -1,5 +1,6 @@
 ﻿using BicycleStore.BikesDatabase.Models;
 using BicycleStore.BikesDatabase.Repositories;
+using BicycleStore.Core.Infrastructure.Interfaces;
 using BicycleStore.Identity.Models;
 using BicycleStore.Identity.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -15,11 +16,11 @@ namespace BicycleStore.Web.Controllers
     public class AdminController : Controller
     {
         readonly int countInOnePage = 10;
-        private readonly BicycleRepository bicycleRepository;
+        private readonly IRepository<Bicycle> bicycleRepository;
         private readonly RoleRepository roleRepository;
         private readonly UserRepository userRepository;
 
-        public AdminController(BicycleRepository bicycleRepository, RoleRepository roleRepository, UserRepository userRepository)
+        public AdminController(IRepository<Bicycle> bicycleRepository, RoleRepository roleRepository, UserRepository userRepository)
         {
             this.bicycleRepository = bicycleRepository;
             this.roleRepository = roleRepository;
@@ -38,7 +39,7 @@ namespace BicycleStore.Web.Controllers
         {
             if (id == null)
             {
-                return View();
+                return View(new Bicycle { Id = Guid.Empty});
             }
             else
             {
@@ -46,15 +47,17 @@ namespace BicycleStore.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult CreateOrEditBicycle(Bicycle bicycle)
+       
+        public IActionResult SaveBicyclesData(Bicycle bicycle)
         {
             if (ModelState.IsValid)
             {
-                bicycleRepository.CreateOrUpdate(bicycle);
-                return RedirectToAction("Index");
+                bicycleRepository.CreateOrUpdate(bicycle, bicycle.Id);
+                bicycleRepository.SaveChanges();
+                return RedirectToAction("Bicycles");
             }
-            return View();
+            
+            return RedirectToAction("CreateOrEditBicycle", "Admin" , (bicycle.Id));
         }
 
 
@@ -63,7 +66,7 @@ namespace BicycleStore.Web.Controllers
             var bicycle = bicycleRepository.Get(Guid.Parse(id));
             bicycleRepository.Delete(bicycle);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Bicycles");
         }
         #endregion
 

@@ -44,8 +44,8 @@ namespace BicycleStore.Web
             services.AddIdentity<User, Role>(options => options.Stores.MaxLengthForKeys = 128)
               .AddEntityFrameworkStores<IdentityUsersContext>()
              .AddDefaultTokenProviders();
+            services.AddDistributedMemoryCache();
             services.AddSession();
-            services.AddMemoryCache();
            
             IdentityBuilder identityBuilder = services.AddIdentityCore<User>(options =>
             {
@@ -105,6 +105,9 @@ namespace BicycleStore.Web
 
             app.UseRouting();
             app.UseSession();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseAuthorization();
 

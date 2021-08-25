@@ -21,30 +21,33 @@ namespace BicycleStore.Identity.Migrations
 
        public async void Initializate()
         {
-            User user1 = new User
-            {
-                UserName = "o.o@o",
-                Email = "o.o@o",
-                Firstname = "o",
-                Secondname = "o"
-            };
-            await userRepository.AddUserAsync(user, "root");
          
-            if (userRepository.Users.ToList().Any(x => x.UserRoles.FirstOrDefault(x => x.Role.NormalizedName == "ADMIN") == null) || userRepository.Users.Count() == 0)
+            if (userRepository.Users.ToList().Any(x => x.UserRoles.FirstOrDefault(x => x.Role.NormalizedName == "ADMIN") == null)
+                || userRepository.Users.Count() == 0)
             {
                 User user = new User
+                {
+                    UserName = "user@user.user",
+                    Email = "user@user.user",
+                    Firstname = "user",
+                    Secondname = "user"
+                };
+                await userRepository.AddUserAsync(user, "user");
+                User root = new User
                 {
                     UserName = "root.root@root",
                     Email = "root.root@root",
                     Firstname = "root",
                     Secondname = "root"
                 };
-                var res = await userRepository.AddUserAsync(user, "root");
+                var res = await userRepository.AddUserAsync(root, "root");
                 Role adminRole = new Role { Name = "Admin" };
                 Role userRole = new Role { Name = "User" };
+                Role moderRole = new Role { Name = "Moderator" };
+                await roleRepository.CreateRoleAsync(moderRole);
                 await roleRepository.CreateRoleAsync(adminRole);
                 await roleRepository.CreateRoleAsync(userRole);
-                userRepository.AddToRoleAsync(user, adminRole.Name);
+                await userRepository.AddToRoleAsync(root, adminRole.Name);
             }
         }
     }
