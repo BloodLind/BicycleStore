@@ -20,8 +20,14 @@ namespace BicycleStore.Identity.Repositories
         public IQueryable<Role> Roles { get => roleManager.Roles.Include(x => x.UserRoles).ThenInclude(x => x.User); }
 
        
-
-
+        public async Task<Role> GetRoleById(string id)
+        {
+            return roleManager.Roles?.FirstOrDefault(x => x.Id == id);
+        }
+        public async Task<Role> GetRole(string name)
+        {
+            return roleManager.Roles?.FirstOrDefault(x => x.Name == name);
+        }
         public async Task<bool> CreateRoleAsync(Role role)
         {
             return (await roleManager.CreateAsync(role)).Succeeded;

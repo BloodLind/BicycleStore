@@ -23,14 +23,19 @@ namespace BicycleStore.Identity.Repositories
         public IQueryable<User> Users { get => userManager.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role); }
         public SignInManager<User> SignInManager { get; }
 
-        public Task<User> GetUserAsync(ClaimsPrincipal id)
+        public Task<User> GetUserAsync(ClaimsPrincipal userClaim)
         {
-            return userManager.GetUserAsync(id);
+            return userManager.GetUserAsync(userClaim);
         }
 
         public Task<User> GetUserAsync(string email)
         {
             return userManager.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public Task<User> GetUserByIdAsync(string id)
+        {
+            return userManager.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<bool> ChangePasswordAsync(User user, string oldPassword, string newPassord)
@@ -67,6 +72,7 @@ namespace BicycleStore.Identity.Repositories
         {
             return (await userManager.AddToRoleAsync(user, role)).Succeeded;
         }
+
 
         public async Task<bool> RemoveFromRoleAsync(User user, string role)
         {
