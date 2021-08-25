@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model BicycleStore.Web.Models.ViewModels.Account.RegistrationViewModel
+
+<div class="d-flex flex-row justify-content-center align-items-center">
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.ValidationSummary()
+        <div>
+            @Html.LabelFor(x => x.User.Email)
+            @Html.TextBoxFor(x => x.User.Email)
+            @Html.ValidationMessageFor(x => x.User.Email)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.User.Firstname)
+            @Html.TextBoxFor(x => x.User.Firstname)
+            @Html.ValidationMessageFor(x => x.User.Firstname)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.User.Secondname)
+            @Html.TextBoxFor(x => x.User.Secondname)
+            @Html.ValidationMessageFor(x => x.User.Secondname)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Password)
+            @Html.PasswordFor(x => x.Password)
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.ConfirmPassword)
+            @Html.PasswordFor(x => x.ConfirmPassword)
+            @Html.ValidationMessageFor(x => x.ConfirmPassword)
+        </div>
+
+        <input type="submit" value="Register" class="btn btn-primary" />
+    }
+    <a class="btn btn-primary" asp-action="Login">
+        Create Acount
+    </a>
+
+</div>
