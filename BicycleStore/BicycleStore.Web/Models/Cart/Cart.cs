@@ -16,7 +16,7 @@ namespace BicycleStore.Web.Models.Cart
         }
 
 
-        public void AddItem(Bicycle bicycle,int quantity)
+        public void AddItem(Bicycle bicycle,int quantity = 1)
         {
             CartLine cartLine = CartLines.FirstOrDefault(x => x.Bicycle.Id == bicycle.Id);
             if (cartLine == null)

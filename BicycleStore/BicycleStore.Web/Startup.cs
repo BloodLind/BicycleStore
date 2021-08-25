@@ -45,6 +45,7 @@ namespace BicycleStore.Web
               .AddEntityFrameworkStores<IdentityUsersContext>()
              .AddDefaultTokenProviders();
             services.AddSession();
+            services.AddMemoryCache();
            
             IdentityBuilder identityBuilder = services.AddIdentityCore<User>(options =>
             {
@@ -103,6 +104,7 @@ namespace BicycleStore.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 
