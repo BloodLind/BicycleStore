@@ -15,6 +15,7 @@ using BicycleStore.BikesDatabase.Context;
 using BicycleStore.Identity.Contexts;
 using BicycleStore.Identity.Models;
 using Microsoft.AspNetCore.Identity;
+using BicycleStore.Identity.Repositories;
 
 namespace BicycleStore.Web
 {
@@ -31,9 +32,7 @@ namespace BicycleStore.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-<<<<<<< HEAD
 
-=======
            
             services.AddDbContext<BicycleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
@@ -43,18 +42,36 @@ namespace BicycleStore.Web
               .AddEntityFrameworkStores<IdentityUsersContext>()
              .AddDefaultTokenProviders().AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
             services.AddSession();
-            services.Configure<IdentityOptions>(options =>
+           
+            IdentityBuilder identityBuilder = services.AddIdentityCore<User>(options =>
             {
-
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireLowercase = false;
-                options.User.RequireUniqueEmail = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequiredUniqueChars = 1;
 
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
 
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
             });
+
+        
+
+            identityBuilder.AddRoles<Role>();
+            identityBuilder.AddUserManager<UserManager<User>>();
+            identityBuilder.AddRoleManager<RoleManager<Role>>();
+
+            services.AddTransient<RoleRepository, RoleRepository>();
+            services.AddTransient<UserRepository, UserRepository>();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/Login";
@@ -62,7 +79,6 @@ namespace BicycleStore.Web
 
             }
             );
->>>>>>> main
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
