@@ -23,7 +23,7 @@ namespace BicycleStore.Web
             {
                 var services = scope.ServiceProvider;
                 try
-                {
+                { 
                     var context = services.GetRequiredService<BicycleContext>();
                     TestBDData.Initialize(context);
                     var migration = new IdentityUsersMigration(services.GetService<UserRepository>(), services.GetService<RoleRepository>());
