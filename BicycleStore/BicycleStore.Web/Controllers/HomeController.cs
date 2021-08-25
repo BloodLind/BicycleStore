@@ -15,7 +15,7 @@ namespace BicycleStore.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+      
 
         IRepository<Bicycle> bicycleRepository;
         public HomeController( IRepository<Bicycle> bicycleRepository)
