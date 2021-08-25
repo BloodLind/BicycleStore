@@ -72,11 +72,21 @@ namespace BicycleStore.Identity.Repositories
         {
             return (await userManager.AddToRoleAsync(user, role)).Succeeded;
         }
+        public async Task<bool> AddToRolesAsync(User user, IEnumerable<string> roles)
+        {
+            return (await userManager.AddToRolesAsync(user, roles)).Succeeded;
+        }
 
 
         public async Task<bool> RemoveFromRoleAsync(User user, string role)
         {
             return (await userManager.RemoveFromRoleAsync(user, role)).Succeeded;
         }
+
+        public async Task<bool> RemoveFromRolesAsync(User user, IEnumerable<string> roles)
+        {
+            return (await userManager.RemoveFromRolesAsync(user, roles)).Succeeded;
+        }
     }
+        
 }

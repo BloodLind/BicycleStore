@@ -21,8 +21,16 @@ namespace BicycleStore.Identity.Migrations
 
        public async void Initializate()
         {
-            
-            if(userRepository.Users.ToList().Any(x => x.UserRoles.FirstOrDefault(x => x.Role.NormalizedName == "ADMIN") == null) || userRepository.Users.Count() == 0)
+            User user1 = new User
+            {
+                UserName = "o.o@o",
+                Email = "o.o@o",
+                Firstname = "o",
+                Secondname = "o"
+            };
+            await userRepository.AddUserAsync(user, "root");
+         
+            if (userRepository.Users.ToList().Any(x => x.UserRoles.FirstOrDefault(x => x.Role.NormalizedName == "ADMIN") == null) || userRepository.Users.Count() == 0)
             {
                 User user = new User
                 {

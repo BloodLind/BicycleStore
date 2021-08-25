@@ -1,5 +1,6 @@
 ﻿using BicycleStore.Identity.Models;
 using BicycleStore.Identity.Repositories;
+using BicycleStore.Web.Models.ViewModels.Role;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace BicycleStore.Web.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         private readonly RoleRepository roleRepository;
@@ -21,41 +21,82 @@ namespace BicycleStore.Web.Controllers
             this.userRepository = userRepository;
         }
 
-        public IActionResult UserRoles()
+        public IActionResult Index() => View(roleRepository.Roles.ToList());
+
+        public IActionResult Create() => View();
+        [HttpPost]
+        public async Task<IActionResult> Create(string name)
         {
-            ViewBag.Roles = roleRepository.Roles.ToList();
-            return View(userRepository.Users.ToList());
+            if (!string.IsNullOrEmpty(name))
+            {
+                var result = await roleRepository.CreateRoleAsync(new Role() {Name = name });
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(name);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UserRoles(List<User> users)
-
+        public async Task<IActionResult> Delete(string id)
         {
-            //foreach (var user in users)
-            //{
-            //    if (user.UserRoles.First().RoleId == "none")
-            //        continue;
+            Role role = await roleRepository.GetRoleById(id);
+            if (role != null)
+            {
+                var result = await roleRepository.DeleteRoleAsync(role);
+            }
+            return RedirectToAction("Index");
+        }
 
-            //    var oldUser = await userRepository.GetUserByIdAsync(user.Id);
+        public IActionResult UserList() => View(userRepository.Users.ToList());
 
-            //    if (oldUser.UserRoles == null)
-            //    var role = user.UserRoles.FirstOrDefault(x => x.UserId == user.Id).Role;
-            //    {
-            //        await userRepository.AddToRoleAsync(oldUser, role.Name);
-            //        continue;
-            //    }
+        public async Task<IActionResult> Edit(string userId)
+        {
+            User user = await userRepository.GetUserByIdAsync(userId);
+            if (user != null)
+            {
+                var userRoles = user.UserRoles.Select(x=>x.Role.Name).ToList();
+                var allRoles = roleRepository.Roles.ToList();
+                ChangeRoleViewModel model = new ChangeRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserEmail = user.Email,
+                    UserRoles = userRoles,
+                    AllRoles = allRoles
+                };
+                return View(model);
+            }
 
-            //    var oldRole = oldUser.UserRoles.First().Role;
-            //    if (oldRole.Id != user.UserRoles.First().RoleId)
-            //    {
-            //        await userRepository.RemoveFromRoleAsync(oldUser, oldRole.Name);
+            return NotFound();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(string userId, List<string> roles)
+        {
+            User user = await userRepository.GetUserByIdAsync(userId);
+            if (user != null)
+            {
+                var userRoles = user.UserRoles.Select(x => x.Role.Name).ToList();
+                var allRoles = roleRepository.Roles.ToList();
+                var addedRoles = roles.Except(userRoles);
+                var removedRoles = userRoles.Except(roles);
 
-            //        await userRepository.AddToRoleAsync(oldUser, roleManager.Roles.FirstOrDefault(x => x.Id == user.UserRoles.First().RoleId).Name);
+                await  userRepository.AddToRolesAsync(user, addedRoles);
 
-            //    }
-            //}
-            
-            return RedirectToAction("EditUsers");
+                await userRepository.RemoveFromRolesAsync(user, removedRoles);
+
+                return RedirectToAction("UserList");
+            }
+
+            return NotFound();
         }
     }
+    
 }
