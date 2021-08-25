@@ -59,13 +59,13 @@ namespace BicycleStore.Core.Repositories
             SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             table.Remove(Get(id));
             SaveChanges();
         }
 
-        public T Get(int id)
+        public T Get(Guid id)
         {
             return table.Find(id);
         }
