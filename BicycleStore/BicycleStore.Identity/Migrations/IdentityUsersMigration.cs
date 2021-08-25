@@ -21,7 +21,7 @@ namespace BicycleStore.Identity.Migrations
 
        public async void Initializate()
         {
-            if(userRepository.Users.Any(x => x.UserRoles.First(x => x.Role.NormalizedName == "ADMIN") == null))
+            if(userRepository.Users.ToList().Any(x => x.UserRoles.FirstOrDefault(x => x.Role.NormalizedName == "ADMIN") == null))
             {
                 User user = new User
                 {

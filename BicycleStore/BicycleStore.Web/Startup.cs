@@ -16,6 +16,9 @@ using BicycleStore.Identity.Contexts;
 using BicycleStore.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using BicycleStore.Identity.Repositories;
+using BicycleStore.Core.Infrastructure.Interfaces;
+using BicycleStore.BikesDatabase.Models;
+using BicycleStore.BikesDatabase.Repositories;
 
 namespace BicycleStore.Web
 {
@@ -40,7 +43,7 @@ namespace BicycleStore.Web
                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
             services.AddIdentity<User, Role>(options => options.Stores.MaxLengthForKeys = 128)
               .AddEntityFrameworkStores<IdentityUsersContext>()
-             .AddDefaultTokenProviders().AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
+             .AddDefaultTokenProviders();
             services.AddSession();
            
             IdentityBuilder identityBuilder = services.AddIdentityCore<User>(options =>
@@ -64,7 +67,9 @@ namespace BicycleStore.Web
                 options.User.RequireUniqueEmail = true;
             });
 
-        
+            services.AddTransient<DbContext, BicycleContext>();
+            services.AddTransient<IRepository<Bicycle>, BicycleRepository>();
+            services.AddTransient<IRepository<Order>, OrderRepository>();
 
             identityBuilder.AddRoles<Role>();
             identityBuilder.AddUserManager<UserManager<User>>();
