@@ -34,6 +34,7 @@ namespace BicycleStore.Web
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "Init Db Error");
                 }
+                host.Run();
             }
         }
 

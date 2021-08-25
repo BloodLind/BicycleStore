@@ -14,12 +14,14 @@ namespace BicycleStore.Identity.Repositories
     {
         private readonly UserManager<User> userManager;
 
-        public UserRepository(UserManager<User> userManager)
+        public UserRepository(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.userManager = userManager;
+            SignInManager = signInManager;
         }
 
         public IQueryable<User> Users { get => userManager.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role); }
+        public SignInManager<User> SignInManager { get; }
 
         public Task<User> GetUserAsync(ClaimsPrincipal id)
         {
@@ -31,10 +33,24 @@ namespace BicycleStore.Identity.Repositories
             return userManager.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).FirstOrDefaultAsync(x => x.Email == email);
         }
 
-
-        public async Task<bool> AddUserAsync(User user, string password)
+        public async Task<bool> ChangePasswordAsync(User user, string oldPassword, string newPassord)
         {
-            return (await userManager.CreateAsync(user, password)).Succeeded;
+            return (await userManager.ChangePasswordAsync(user, oldPassword, newPassord)).Succeeded;
+        }
+
+        public async Task<bool> ChangeEmailAsync(User user, string email, string token)
+        {
+            return (await userManager.ChangeEmailAsync(user, email, token)).Succeeded;
+        }
+
+        public async Task<bool> ChangePhoneAsync(User user, string phone, string token)
+        {
+            return (await userManager.ChangePhoneNumberAsync(user, phone, token)).Succeeded;
+        }
+
+        public Task<IdentityResult> AddUserAsync(User user, string password)
+        {
+            return userManager.CreateAsync(user, password);
         }
 
         public async Task<bool> DeleteUserAsync(User user)
