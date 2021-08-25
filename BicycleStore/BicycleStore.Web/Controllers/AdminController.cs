@@ -19,13 +19,14 @@ namespace BicycleStore.Web.Controllers
         private readonly RoleRepository roleRepository;
         private readonly UserRepository userRepository;
 
-        public AdminController(BicycleRepository bicycleRepository,RoleRepository roleRepository, UserRepository userRepository)
+        public AdminController(BicycleRepository bicycleRepository, RoleRepository roleRepository, UserRepository userRepository)
         {
             this.bicycleRepository = bicycleRepository;
             this.roleRepository = roleRepository;
             this.userRepository = userRepository;
         }
 
+        #region Bicycles
         public IActionResult Bicycles(int page = 1)
         {
             int bicyclesCount = bicycleRepository.GetAll().Count();
@@ -56,14 +57,17 @@ namespace BicycleStore.Web.Controllers
             return View();
         }
 
-        [HttpPost]
+
         public IActionResult DeleteBicycle(string id)
         {
             var bicycle = bicycleRepository.Get(Guid.Parse(id));
             bicycleRepository.Delete(bicycle);
-            
+
             return RedirectToAction("Index");
         }
+        #endregion
+
+        #region Users
 
         public async Task<IActionResult> DeleteUser(string id)
         {
@@ -71,5 +75,18 @@ namespace BicycleStore.Web.Controllers
             return RedirectToAction("EditUsers");
         }
 
+        public async Task<IActionResult> EditUserData(string id)
+        {
+            return View(await userRepository.GetUserByIdAsync(id));
+        }
+
+        [HttpPost]
+        public IActionResult EditUserData(User user)
+        {
+            user.UserName = user.Email;
+            userRepository.UpdateUserAsync(user); 
+            return RedirectToAction("UserList", "Role");
+        }
+        #endregion
     }
 }

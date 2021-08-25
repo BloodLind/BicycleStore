@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BicycleStore.Identity.Models.User
+
+@using (Html.BeginForm("EditUserData", "Admin", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    @Html.HiddenFor(x => x.Id);
+    <div>
+        @Html.LabelFor(x => x.Email)
+        @Html.TextBoxFor(x => x.Email)
+        @Html.ValidationMessageFor(x => x.Email)
+    </div>
+    <div>
+        @Html.LabelFor(x => x.Firstname)
+        @Html.TextBoxFor(x => x.Firstname)
+        @Html.ValidationMessageFor(x => x.Firstname)
+    </div>
+    <div>
+        @Html.LabelFor(x => x.Secondname)
+        @Html.TextBoxFor(x => x.Secondname)
+        @Html.ValidationMessageFor(x => x.Secondname)
+    </div>
+    <div>
+        @Html.LabelFor(x => x.PhoneNumber)
+        @Html.TextBoxFor(x => x.PhoneNumber)
+        @Html.ValidationMessageFor(x => x.PhoneNumber)
+    </div>
+
+    <input type="submit" value="Save" class="btn btn-primary" />
+}
