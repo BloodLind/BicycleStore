@@ -15,6 +15,10 @@ using BicycleStore.BikesDatabase.Context;
 using BicycleStore.Identity.Contexts;
 using BicycleStore.Identity.Models;
 using Microsoft.AspNetCore.Identity;
+using BicycleStore.Identity.Repositories;
+using BicycleStore.Core.Infrastructure.Interfaces;
+using BicycleStore.BikesDatabase.Models;
+using BicycleStore.BikesDatabase.Repositories;
 
 namespace BicycleStore.Web
 {
@@ -31,6 +35,7 @@ namespace BicycleStore.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
            
             services.AddDbContext<BicycleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
@@ -38,20 +43,40 @@ namespace BicycleStore.Web
                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
             services.AddIdentity<User, Role>(options => options.Stores.MaxLengthForKeys = 128)
               .AddEntityFrameworkStores<IdentityUsersContext>()
-             .AddDefaultTokenProviders().AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
+             .AddDefaultTokenProviders();
             services.AddSession();
-            services.Configure<IdentityOptions>(options =>
+           
+            IdentityBuilder identityBuilder = services.AddIdentityCore<User>(options =>
             {
-
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireLowercase = false;
-                options.User.RequireUniqueEmail = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequiredUniqueChars = 1;
 
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
 
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
             });
+
+            services.AddTransient<DbContext, BicycleContext>();
+            services.AddTransient<IRepository<Bicycle>, BicycleRepository>();
+            services.AddTransient<IRepository<Order>, OrderRepository>();
+
+            identityBuilder.AddRoles<Role>();
+            identityBuilder.AddUserManager<UserManager<User>>();
+            identityBuilder.AddRoleManager<RoleManager<Role>>();
+
+            services.AddTransient<RoleRepository, RoleRepository>();
+            services.AddTransient<UserRepository, UserRepository>();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/Login";
