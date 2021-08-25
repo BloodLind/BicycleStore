@@ -1,4 +1,8 @@
-﻿using BicycleStore.Web.Models;
+﻿using BicycleStore.BikesDatabase.Context;
+using BicycleStore.BikesDatabase.Models;
+using BicycleStore.BikesDatabase.Repositories;
+using BicycleStore.Core.Infrastructure.Interfaces;
+using BicycleStore.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,16 +17,50 @@ namespace BicycleStore.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        IRepository<Bicycle> bicycleRepository;
+        public HomeController( IRepository<Bicycle> bicycleRepository)
         {
-            _logger = logger;
+           this.bicycleRepository = bicycleRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+          
+            return View(bicycleRepository.GetAll());
         }
 
+
+       
+        //Code for send order to user email
+       
+            //if (BicycleContext.Orders.FirstOrDefault(o => o.UserName == order.UserName) != null)
+            //{
+            //    ModelState.AddModelError("UserName", "this username is used");
+            //}
+            //if (ModelState.IsValid)
+            //{
+            //    BicycleContext.Orders.Add(order);
+            //    BicycleContext.SaveChanges();
+            //    MailAddress from = new MailAddress("spamtemp0azaza@gmail.com", "my logg");
+            //    MailAddress to = new MailAddress(order.Mail);
+            //    MailMessage m = new MailMessage(from, to);
+            //    m.Subject = "Log";
+            //    m.Body = $"<h2>Лучше бы машину купил, {order.UserName} {BicycleContext.Bicycles.FirstOrDefault(b => b.Id == order.BicycleId).Model}</h2>";
+            //    m.IsBodyHtml = true;
+            //    SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            //    smtp.Credentials = new NetworkCredential("spamtemp0azaza@gmail.com", "hryfprkojvshqkpi");
+            //    smtp.EnableSsl = true;
+            //    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //    smtp.Send(m);
+            //    string cntnt = $"Лучше бы машину купил, {order.UserName}";
+
+
+            //    return RedirectToAction($"Index", new { content = cntnt });
+            //}
+
+            //return View();
+
+        
         public IActionResult Privacy()
         {
             return View();
@@ -35,3 +73,4 @@ namespace BicycleStore.Web.Controllers
         }
     }
 }
+

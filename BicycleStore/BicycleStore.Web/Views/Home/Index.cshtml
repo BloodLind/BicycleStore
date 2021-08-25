@@ -1,8 +1,48 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+   
 }
+@model IEnumerable<BicycleStore.BikesDatabase.Models.Bicycle>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+
+    <h2>@ViewBag.IndexContent</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tittle</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bicycle in Model)
+            {
+                <tr>
+                    <td>@bicycle.Id</td>
+                    <td>@bicycle.Tittle</td>
+                    <td>@bicycle.Model</td>
+                    <td style="height:1ch;color:@bicycle.Color"></td>
+                    <td>@bicycle.Price</td>
+
+               
+                    <td>
+                        @using (Html.BeginForm("AddToCart", "Cart"))
+                        {
+
+                        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                        <input type="hidden" name="productId" value="@bicycle.Id" />
+                        <input type="submit" value="+" class="btn btn-info"  />
+                        }
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
