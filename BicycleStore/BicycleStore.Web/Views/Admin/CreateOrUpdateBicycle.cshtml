@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BicycleStore.BikesDatabase.Models.Bicycle
+
+<form method="post" class="d-flex flex-column justify-content-center needs-validation justify-items-center ">
+
+    <div>
+        <label asp-for="Tittle" class="form-label"></label>
+        <div class="input-group has-validation">
+            <input type="text" class="form-control" asp-for="Tittle">
+            <div class="invalid">@Html.ValidationMessageFor(x => x.Tittle)</div>
+        </div>
+    </div>
+    <div>
+        <label asp-for="Model" class="form-label"></label>
+        <div class="input-group has-validation">
+            <input type="text" class="form-control" asp-for="Model">
+            <div class="invalid">@Html.ValidationMessageFor(x => x.Model)</div>
+        </div>
+    </div>
+    <div>
+        <label asp-for="Info" class="form-label"></label>
+        <div class="input-group has-validation">
+            <input type="text" class="form-control" asp-for="Info">
+            <div class="invalid">@Html.ValidationMessageFor(x => x.Info)</div>
+        </div>
+    </div>
+    <div>
+        <label asp-for="Price" class="form-label"></label>
+        <div class="input-group has-validation">
+            <input type="text" class="form-control" asp-for="Price">
+            <div class="invalid">@Html.ValidationMessageFor(x => x.Price)</div>
+        </div>
+    </div>
+
+
+    @Html.HiddenFor(x => x.Id)
+    <input type="submit" class="btn btn-danger" value="OK" />
+</form>
