@@ -21,9 +21,9 @@ namespace BicycleStore.Web.Components
 
         public IViewComponentResult Invoke()
         {
+   
+          
             
-            ViewBag.Filters = RouteData.Values["filters"]?.ToString().Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
-            ViewBag.Filters = ViewBag.Filters == null ? new List<string>() : ViewBag.Filters;
             Dictionary<string, List<string>> filter = new Dictionary<string, List<string>>();
             
             foreach (var key in typeof(Bicycle).GetProperties())

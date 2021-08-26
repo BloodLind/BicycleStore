@@ -16,14 +16,14 @@ namespace BicycleStore.Web.Controllers
     public class HomeController : Controller
     {
 
-        private Dictionary<string, List<string>> filters = new Dictionary<string, List<string>>();
+        static private Dictionary<string, List<string>> filters = new Dictionary<string, List<string>>();
         IRepository<Bicycle> bicycleRepository;
         public HomeController( IRepository<Bicycle> bicycleRepository)
         {
            this.bicycleRepository = bicycleRepository;
         }
 
-        public IActionResult Index(string category, int?page, string filters)
+        public IActionResult Index(string category, int?page)
         {
             List<Bicycle> bicycles;
             if (category != null)
@@ -33,11 +33,13 @@ namespace BicycleStore.Web.Controllers
             else
                 bicycles = bicycleRepository.GetAll().ToList();
 
-            if(this.filters.Count > 0)
+            foreach(var pair in HomeController.filters)
+                if(pair.Value.Count >0)
             {
-                foreach (var pare in this.filters)
+                foreach (var pare in HomeController.filters)
                     bicycles = bicycles.Where(x => pare.Value.Contains(x.GetType().GetProperty(pare.Key).GetValue(x))).ToList();
             }
+            ViewBag.Filters = HomeController.filters;
             return View(bicycles);
         }
         
@@ -57,7 +59,7 @@ namespace BicycleStore.Web.Controllers
         {
 
             filters = data;
-            return RedirectToAction("Index", new { fileters = string.Join(",",data) });
+            return RedirectToAction("Index");
         }
     }
 }

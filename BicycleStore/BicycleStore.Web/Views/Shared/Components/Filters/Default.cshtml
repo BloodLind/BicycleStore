@@ -2,26 +2,46 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+
+    int i = 0;
 }
 @model Dictionary<string, List<string>>
 
-<a class="btn btn-primary" href="@Context.Request.Path">Clear Filters</a>
+
 
 <form id="formname" asp-action="GenerateFilters" asp-controller="Home" method="post" class="d-flex flex-column">
     @foreach(var pare in Model)
             {
         <h3>@pare.Key</h3>
-        
-    @foreach(var filter in pare.Value)
-            {
-        <span class="d-flex justify-content-between">
 
-          <label>@filter</label>
-                <input type="checkbox" class="custom-checkbox filter" @(ViewBag.Filters?.Contains(filter) && ViewBag.Filters != null ? "checked=\"checked\"" : "") 
-                       asp-for="Values[@pare.Key]" />
+        <input type="hidden" name="data[@i].Key" value="@pare.Key"/>
+
+    @for (int j = 0; j < pare.Value.Count; j++)
+    {
+        <span class="d-flex justify-content-between">
+           
+          <label>@pare.Value[j]</label>
+                <input type="checkbox" class="custom-checkbox filter" @{
+
+                    if (ViewBag.Filters.ContainsKey(pare.Key))
+                    {
+
+                        if (ViewBag.Filters[pare.Key].Contains(@pare.Value[j]))
+                        {
+                             @:checked
+                       }
+                           
+
+                    }
+                    }
+                         name="data[@i].Value" value="@pare.Value[j]"/>
+
+
+
         </span>
             }
-            }
+        i++;
+    }
    
 </form>
 
