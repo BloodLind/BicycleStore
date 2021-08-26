@@ -1,4 +1,5 @@
-﻿using BicycleStore.Identity.Models;
+﻿using BicycleStore.Identity.Contexts;
+using BicycleStore.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,11 +14,13 @@ namespace BicycleStore.Identity.Repositories
     public class UserRepository
     {
         private readonly UserManager<User> userManager;
+        private readonly IdentityUsersContext context;
 
-        public UserRepository(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserRepository(UserManager<User> userManager, SignInManager<User> signInManager, IdentityUsersContext context)
         {
             this.userManager = userManager;
             SignInManager = signInManager;
+            this.context = context;
         }
 
         public IQueryable<User> Users { get => userManager.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role); }
@@ -63,9 +66,20 @@ namespace BicycleStore.Identity.Repositories
             return (await userManager.DeleteAsync(user)).Succeeded;
         }
 
-        public async Task<bool> UpdateUserAsync(User user)
+        public async void UpdateUser(User user)
         {
-            return (await userManager.UpdateAsync(user)).Succeeded;
+            var old = await userManager.FindByIdAsync(user.Id);
+            await userManager.DeleteAsync(old);
+          
+            foreach(var item in old.GetType().GetProperties())
+            {
+                if(item.GetValue(user) != null)
+                {
+                    user.GetType().GetProperty(item.Name).SetValue(old, item.GetValue(user), null);
+                }
+            }
+            await userManager.CreateAsync(old);
+             
         }
 
         public async Task<bool> AddToRoleAsync(User user, string role)

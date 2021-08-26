@@ -41,7 +41,7 @@
 <div class="d-flex flex-row justify-content-center bg-dark ">
     @for (int i = 0; i < ViewBag.countPages; i++)
     {
-        <a class="m-2 btn btn-primary" href="~/Admin/?page=@(i+1)">@(i+1)</a>
+        <a class="m-2 btn btn-primary" asp-controller="Admin" asp-action="Bicycles" asp-route-id="@(i)">@(i + 1)</a>
     }
 
 

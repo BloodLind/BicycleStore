@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<string>
+
+<a class="btn btn-secondary" href="~/Home/Index/">
+    All
+</a>
+
+@foreach (var category in Model)
+{
+    <a class="btn @(ViewBag.SelectedCategory == @category ? "btn-primary" : "btn-secondary") " 
+       href="~/Home/Index/@category">
+        @category
+    </a>
+}

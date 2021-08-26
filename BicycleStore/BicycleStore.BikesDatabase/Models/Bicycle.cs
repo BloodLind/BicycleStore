@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using BicycleStore.Core.Infrastructure.Attributes;
 
 namespace BicycleStore.BikesDatabase.Models
 {
@@ -14,18 +15,19 @@ namespace BicycleStore.BikesDatabase.Models
         
         [Required]
         public string Model { set; get; }
-        [Required]
+        [Required, UnFiltered]
         public string Tittle { set; get; }
-        [Required]
+        [Required, UnFiltered]
         public double Price { set; get; }
         [Required]
         public string Color { set; get; }
-        [Required]
+        [Required, UnFiltered]
         public string Info { set; get; }
+        [UnFiltered]
         public virtual ICollection<OrderBicycle> OrderBicycles { set; get; }
 
 
-        [Key]
+        [Key, UnFiltered]
         public Guid Id { get ; set; }
     }
 }

@@ -1,16 +1,27 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-   
+    
 }
+
 @model IEnumerable<BicycleStore.BikesDatabase.Models.Bicycle>
 
 <a asp-action="Index" asp-controller="Cart"class="btn-primary btn" asp-route-returnUrl="/Home">Cart</a>
+
+<div class="d-flex flex-row justify-content-between m-2">
+    @await Component.InvokeAsync("Navigation")
+</div>
+
+<div class="d-flex flex-row">
+
+    <div class="col-3">
+        @await Component.InvokeAsync("Filters")
+    </div>
+    <div class="col-9">
 
     <h2>@ViewBag.IndexContent</h2>
     <table class="table">
         <thead>
             <tr>
-               
                 <th>Tittle</th>
                 <th>Model</th>
                 <th>Color</th>
@@ -43,6 +54,8 @@
             }
         </tbody>
     </table>
+    </div>
+</div>
 
 
 

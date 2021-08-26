@@ -84,11 +84,17 @@ namespace BicycleStore.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUserData(User user)
+        public async Task<IActionResult> EditUserData(User user)
         {
-            user.UserName = user.Email;
-            userRepository.UpdateUserAsync(user); 
-            return RedirectToAction("UserList", "Role");
+            if (ModelState.IsValid)
+            {
+                var root = await userRepository.GetUserByIdAsync(user.Id);
+                root.UserName = user.Email;
+                
+                userRepository.UpdateUser(user); 
+                return RedirectToAction("UserList", "Role");
+            }
+            return View(user.Id);
         }
         #endregion
     }

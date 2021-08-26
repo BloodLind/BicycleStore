@@ -9,6 +9,10 @@
                 <td>
                     <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Roles</a>
                 </td>
+
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="EditUserData" asp-controller="Admin" asp-route-id="@user.Id">Edit Data</a>
+                </td>
             </tr>
         }
     </table>

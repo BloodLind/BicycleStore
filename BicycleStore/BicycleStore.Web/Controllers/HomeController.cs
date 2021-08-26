@@ -15,51 +15,31 @@ namespace BicycleStore.Web.Controllers
 {
     public class HomeController : Controller
     {
-      
 
+        private Dictionary<string, List<string>> filters = new Dictionary<string, List<string>>();
         IRepository<Bicycle> bicycleRepository;
         public HomeController( IRepository<Bicycle> bicycleRepository)
         {
            this.bicycleRepository = bicycleRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string category, int?page, string filters)
         {
-          
-            return View(bicycleRepository.GetAll());
+            List<Bicycle> bicycles;
+            if (category != null)
+            {
+                bicycles = bicycleRepository.GetAll().ToList().OrderBy((x => x.GetType().GetProperty(category).GetValue(x))).ToList();
+            }
+            else
+                bicycles = bicycleRepository.GetAll().ToList();
+
+            if(this.filters.Count > 0)
+            {
+                foreach (var pare in this.filters)
+                    bicycles = bicycles.Where(x => pare.Value.Contains(x.GetType().GetProperty(pare.Key).GetValue(x))).ToList();
+            }
+            return View(bicycles);
         }
-
-
-       
-        //Code for send order to user email
-       
-            //if (BicycleContext.Orders.FirstOrDefault(o => o.UserName == order.UserName) != null)
-            //{
-            //    ModelState.AddModelError("UserName", "this username is used");
-            //}
-            //if (ModelState.IsValid)
-            //{
-            //    BicycleContext.Orders.Add(order);
-            //    BicycleContext.SaveChanges();
-            //    MailAddress from = new MailAddress("spamtemp0azaza@gmail.com", "my logg");
-            //    MailAddress to = new MailAddress(order.Mail);
-            //    MailMessage m = new MailMessage(from, to);
-            //    m.Subject = "Log";
-            //    m.Body = $"<h2>Лучше бы машину купил, {order.UserName} {BicycleContext.Bicycles.FirstOrDefault(b => b.Id == order.BicycleId).Model}</h2>";
-            //    m.IsBodyHtml = true;
-            //    SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            //    smtp.Credentials = new NetworkCredential("spamtemp0azaza@gmail.com", "hryfprkojvshqkpi");
-            //    smtp.EnableSsl = true;
-            //    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //    smtp.Send(m);
-            //    string cntnt = $"Лучше бы машину купил, {order.UserName}";
-
-
-            //    return RedirectToAction($"Index", new { content = cntnt });
-            //}
-
-            //return View();
-
         
         public IActionResult Privacy()
         {
@@ -70,6 +50,14 @@ namespace BicycleStore.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        
+        [HttpPost]
+        public IActionResult GenerateFilters(Dictionary<string, List<string>> data)
+        {
+
+            filters = data;
+            return RedirectToAction("Index", new { fileters = string.Join(",",data) });
         }
     }
 }

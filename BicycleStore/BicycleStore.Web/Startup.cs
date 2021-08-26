@@ -19,6 +19,7 @@ using BicycleStore.Identity.Repositories;
 using BicycleStore.Core.Infrastructure.Interfaces;
 using BicycleStore.BikesDatabase.Models;
 using BicycleStore.BikesDatabase.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BicycleStore.Web
 {
@@ -35,7 +36,10 @@ namespace BicycleStore.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+            });
            
             services.AddDbContext<BicycleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
@@ -68,6 +72,7 @@ namespace BicycleStore.Web
                 options.User.RequireUniqueEmail = true;
             });
 
+            services.AddTransient<IdentityUsersContext, IdentityUsersContext>();
             services.AddTransient<DbContext, BicycleContext>();
             services.AddTransient<IRepository<Bicycle>, BicycleRepository>();
             services.AddTransient<IRepository<Order>, OrderRepository>();
@@ -82,7 +87,7 @@ namespace BicycleStore.Web
             {
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/Login";
-
+               
             }
             );
         }
@@ -110,12 +115,22 @@ namespace BicycleStore.Web
             app.UseAuthorization();
 
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            
+           
+            app.UseMvc(route =>
             {
-                endpoints.MapControllerRoute(
+                
+                route.MapRoute(name: null,
+                    template: "{controller=Home}/{action=Index}/{category}"
+                   );
+                route.MapRoute(name: null,
+                    template: "{contorller=Home}/{action=Index}/Page{page:int}");
+
+              route.MapRoute(name: null, 
+                  template: "{controller=Home}/{action=Index}/{category}/Page{page:int}");
+                route.MapRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}");
             });
         }
     }
