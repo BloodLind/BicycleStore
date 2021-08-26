@@ -4,7 +4,7 @@
 }
 @model IEnumerable<BicycleStore.BikesDatabase.Models.Bicycle>
 
-
+<a asp-action="Index" asp-controller="Cart"class="btn-primary btn" asp-route-returnUrl="/Home">Cart</a>
 
     <h2>@ViewBag.IndexContent</h2>
     <table class="table">

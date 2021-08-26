@@ -1,5 +1,5 @@
 ﻿@model BicycleStore.Web.Models.ViewModels.Cart.CartIndexViewModel
-<a class="btn btn-primary" href="@Model.ReturnURL">Back</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -22,7 +22,7 @@
                 <td>@line.Bicycle.Price</td>
                 <td>@line.Quantity</td>
                 <td>@(line.Bicycle.Price * line.Quantity)</td>
-                <td><a class="btn btn-dark" href="~/Cart/RemoveFromCart/?id=@line.Bicycle.Id.ToString()">X</a></td>
+                <td><a class="btn btn-dark" asp-action="RemoveFromCart" asp-controller="Cart" asp-route-id="@line.Bicycle.Id.ToString()" asp-route-returnUrl="/Cart">X</a></td>
 
 
             </tr>

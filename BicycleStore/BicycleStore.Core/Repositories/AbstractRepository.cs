@@ -29,7 +29,10 @@ namespace BicycleStore.Core.Repositories
             {
                 var entry = table.Attach(target);
                 foreach (var item in entity.GetType().GetProperties())
-                    entry.Entity.GetType().GetProperty(item.Name).SetValue(entry.Entity, item.GetValue(entity, null), null);
+                    entry.Entity
+                        .GetType()
+                        .GetProperty(item.Name)
+                        .SetValue(entry.Entity,item.GetValue(entity, null), null);
 
                 entry.State = EntityState.Modified;
             }
