@@ -14,7 +14,7 @@ namespace BicycleStore.Web.Components
         public IViewComponentResult Invoke()
         {
             ViewBag.SelectedCategory = RouteData?.Values["category"];
-            return View(typeof(Bicycle).GetProperties().Where(x => x.Name != "Id").Select(x => x.Name));
+            return View(typeof(Bicycle).GetProperties().Where(x => x.Name != "Id" && x.Name != "OrderBicycles").Select(x => x.Name));
         }
     }
 }

@@ -29,19 +29,19 @@ namespace BicycleStore.Web.Components
             foreach (var key in typeof(Bicycle).GetProperties())
             {
                 
-                    object[] attrs = key.GetCustomAttributes(true);
+                object[] attrs = key.GetCustomAttributes(true);
                 bool isFiltred = true;
-                    foreach (object attr in attrs)
-                    {
+                foreach (object attr in attrs)
+                {
                 
-                        UnFilteredAttribute authAttr = attr as UnFilteredAttribute;
-                        if (authAttr != null || key.PropertyType != typeof(string))
-                            {
-                                isFiltred = false;
-                                break;
-                            }
-                        
+                    UnFilteredAttribute authAttr = attr as UnFilteredAttribute;
+                    if (authAttr != null || key.PropertyType != typeof(string))
+                    {
+                        isFiltred = false;
+                        break;
                     }
+                        
+                }
                 if (isFiltred)
                 {
                     var list = repository.GetAll().ToList();
