@@ -15,15 +15,19 @@ namespace BicycleStore.Web.Controllers
 {
     public class HomeController : Controller
     {
-
+        static private readonly int countInOnePage = 10;
+        static private  int page = 1;
+        static private  string category = null;
+        static private string searchText = null;
         static private Dictionary<string, List<string>> filters = new Dictionary<string, List<string>>();
         IRepository<Bicycle> bicycleRepository;
         public HomeController( IRepository<Bicycle> bicycleRepository)
         {
            this.bicycleRepository = bicycleRepository;
+     
         }
 
-        public IActionResult Index(string category, int?page)
+        private List<Bicycle> SortOrFilter(int page, string category=null,string searchText="")
         {
             List<Bicycle> bicycles;
             if (category != null)
@@ -33,16 +37,53 @@ namespace BicycleStore.Web.Controllers
             else
                 bicycles = bicycleRepository.GetAll().ToList();
 
-            foreach(var pair in HomeController.filters)
-                if(pair.Value.Count >0)
-            {
-                foreach (var pare in HomeController.filters)
-                    bicycles = bicycles.Where(x => pare.Value.Contains(x.GetType().GetProperty(pare.Key).GetValue(x))).ToList();
-            }
+            foreach (var pair in HomeController.filters)
+                if (pair.Value.Count > 0)
+                {
+                    foreach (var pare in HomeController.filters)
+                        bicycles = bicycles.Where(x => pare.Value.Contains(x.GetType().GetProperty(pare.Key).GetValue(x))).ToList();
+                }
             ViewBag.Filters = HomeController.filters;
-            return View(bicycles);
+            if(searchText != null && searchText.Length > 0 )
+            {
+                bicycles = bicycles.Where(x => x.Tittle.ToLower().Contains(searchText.ToLower())).ToList();
+            }
+            ViewBag.countPages = (int)Math.Ceiling(bicycles.Count / (double)countInOnePage);
+            ViewBag.currentPage = page;
+            bicycles = bicycles.Skip((page - 1) * countInOnePage).Take(countInOnePage).ToList();
+            return bicycles;
         }
-        
+      
+      
+        [HttpGet("Home/Index/Category-{category}")]
+        public IActionResult Index(string category = null)
+        {
+
+            HomeController.category = category;
+            return View(SortOrFilter(1, category));
+
+        }
+        [HttpGet("Home/Index/Page{page:int}") , HttpGet(""), HttpGet("Home/Index")]
+        public IActionResult Index(int page = 1)
+        {
+            HomeController.page = page;
+            return View((SortOrFilter(page,searchText:searchText)));
+        }
+        [HttpGet("Home/Index/Category-{category}/Page{page:int}")]
+        public IActionResult Index(int page = 1, string category = null)
+        {
+            HomeController.category = category;
+            HomeController.page = page;
+            return View(SortOrFilter(page, category));
+        }
+        public IActionResult BicycleList(string searchText)
+        {
+          
+            HomeController.searchText = searchText;
+
+            return PartialView("_BicyclesList", SortOrFilter(page,category, searchText));
+        }
+
         public IActionResult Privacy()
         {
             return View();

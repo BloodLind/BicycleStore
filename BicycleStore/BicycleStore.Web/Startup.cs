@@ -119,15 +119,17 @@ namespace BicycleStore.Web
            
             app.UseMvc(route =>
             {
-                
-                route.MapRoute(name: null,
-                    template: "{controller=Home}/{action=Index}/{category}"
-                   );
-                route.MapRoute(name: null,
-                    template: "{contorller=Home}/{action=Index}/Page{page:int}");
-
-              route.MapRoute(name: null, 
-                  template: "{controller=Home}/{action=Index}/{category}/Page{page:int}");
+            //    route.MapRoute(name: null,
+            //     template: "{contorller=Home}/{action=Index}/{page:int}" 
+            //    );
+            //    route.MapRoute(name: null,
+            //        template: "{controller=Home}/{action=Index}/{category}"
+            //       );
+             
+            //    route.MapRoute(name: null,
+            //      template: "{contorller=Admin}/{action=Bicycles}/Page{page:int}");
+            //    route.MapRoute(name: null, 
+            //      template: "{controller=Home}/{action=Index}/{category}/{page:int}");
                 route.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}");
