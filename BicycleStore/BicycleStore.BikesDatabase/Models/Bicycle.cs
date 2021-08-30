@@ -21,8 +21,8 @@ namespace BicycleStore.BikesDatabase.Models
         public double Price { set; get; }
         [Required]
         public string Color { set; get; }
-        [Required, UnFiltered]
-        public string Info { set; get; }
+        [UnFiltered]
+        public string Info { set; get; } = "N/A";
         [UnFiltered]
         public virtual ICollection<OrderBicycle> OrderBicycles { set; get; }
 
