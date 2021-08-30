@@ -7,3 +7,13 @@ $(document).ready(function () {
         $("#formname").submit();
     });
 });
+
+
+$('#bicycles')
+    .load('/Home/BicycleList')
+
+$('#search').change( function () {
+    let searchText = $('#search').val()
+    $('#bicycles')
+        .load(`/Home/BicycleList?searchText=${ searchText }`)
+})

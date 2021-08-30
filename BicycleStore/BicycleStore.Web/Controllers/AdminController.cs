@@ -15,7 +15,7 @@ namespace BicycleStore.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        readonly int countInOnePage = 10;
+        readonly int countInOnePage = 2;
         private readonly IRepository<Bicycle> bicycleRepository;
         private readonly RoleRepository roleRepository;
         private readonly UserRepository userRepository;
@@ -31,7 +31,8 @@ namespace BicycleStore.Web.Controllers
         public IActionResult Bicycles(int page = 1)
         {
             int bicyclesCount = bicycleRepository.GetAll().Count();
-            ViewBag.countPages = Math.Ceiling(bicyclesCount / (double)countInOnePage);
+            ViewBag.countPages = (int)Math.Ceiling(bicyclesCount / (double)countInOnePage);
+            ViewBag.currentPage = page;
             return View(bicycleRepository.GetAll().Skip((page - 1) * countInOnePage).Take(countInOnePage));
         }
 

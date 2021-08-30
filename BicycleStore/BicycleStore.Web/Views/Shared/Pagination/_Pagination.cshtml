@@ -1,0 +1,15 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model int
+<div class="d-flex flex-row justify-content-center bg-dark ">
+    @for (int i = 0; i < Model; i++)
+    {
+        <a class="m-2 btn btn-primary" asp-controller="Admin" asp-action="Bicycles" asp-route-id="@(i)">@(i + 1)</a>
+    }
+
+
+</div>
