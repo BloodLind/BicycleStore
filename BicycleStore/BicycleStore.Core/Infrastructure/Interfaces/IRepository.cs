@@ -10,7 +10,7 @@ namespace BicycleStore.Core.Infrastructure.Interfaces
     {
         T Get(Guid id);
         IQueryable<T> GetAll();
-        void CreateOrUpdate(T entity, Guid id);
+        void CreateOrUpdate(T entity, Guid id = default(Guid));
         void Delete(T entity);
         void SaveChanges();
         void Delete(Guid id);
