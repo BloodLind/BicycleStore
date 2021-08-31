@@ -37,6 +37,7 @@ namespace BicycleStore.Web.Controllers.API
         [HttpDelete]
         public async Task<ActionResult<Bicycle>> Delete(Bicycle bicycle)
         {
+            
             if (bicycle == null || bicycle.Id == Guid.Empty)
                 BadRequest();
             repository.Delete(bicycle);
