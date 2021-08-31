@@ -30,7 +30,8 @@ namespace BicycleStore.Web.Controllers.API
         {
             if (bicycle == null)
                 BadRequest();
-            repository.CreateOrUpdate(bicycle);
+            repository.CreateOrUpdate(bicycle,bicycle.Id);
+            repository.SaveChanges();
             return Ok(bicycle);
         }
         [HttpDelete]
@@ -39,6 +40,7 @@ namespace BicycleStore.Web.Controllers.API
             if (bicycle == null || bicycle.Id == Guid.Empty)
                 BadRequest();
             repository.Delete(bicycle);
+            repository.SaveChanges();
             return Ok(bicycle);
         }
         [HttpPut]

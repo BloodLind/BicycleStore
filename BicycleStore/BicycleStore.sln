@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BicycleStore.Web", "BicycleStore.Web\BicycleStore.Web.csproj", "{36B8F95E-F067-4362-8008-7DD9E69C6156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BicycleStore.Web", "BicycleStore.Web\BicycleStore.Web.csproj", "{36B8F95E-F067-4362-8008-7DD9E69C6156}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BicycleStore.Identity", "BicycleStore.Identity\BicycleStore.Identity.csproj", "{10F6746E-9771-4AC6-9578-A61AC898B97B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BicycleStore.Identity", "BicycleStore.Identity\BicycleStore.Identity.csproj", "{10F6746E-9771-4AC6-9578-A61AC898B97B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BicycleStore.BikesDatabase", "BicycleStore.BikesDatabase\BicycleStore.BikesDatabase.csproj", "{C3AD91B4-C44F-4375-B001-59D661D19E11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BicycleStore.BikesDatabase", "BicycleStore.BikesDatabase\BicycleStore.BikesDatabase.csproj", "{C3AD91B4-C44F-4375-B001-59D661D19E11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BicycleStore.Core", "BicycleStore.Core\BicycleStore.Core.csproj", "{CA168EE1-DBD2-4E35-9C5C-B641DFC738FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BicycleStore.Core", "BicycleStore.Core\BicycleStore.Core.csproj", "{CA168EE1-DBD2-4E35-9C5C-B641DFC738FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BicycleStore.Client", "BicycleStore.Client\BicycleStore.Client.csproj", "{F2BE1ADD-58B9-4655-B830-9028F4432CC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CA168EE1-DBD2-4E35-9C5C-B641DFC738FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA168EE1-DBD2-4E35-9C5C-B641DFC738FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA168EE1-DBD2-4E35-9C5C-B641DFC738FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2BE1ADD-58B9-4655-B830-9028F4432CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2BE1ADD-58B9-4655-B830-9028F4432CC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2BE1ADD-58B9-4655-B830-9028F4432CC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2BE1ADD-58B9-4655-B830-9028F4432CC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
