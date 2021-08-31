@@ -34,15 +34,15 @@ namespace BicycleStore.Web.Controllers.API
             repository.SaveChanges();
             return Ok(bicycle);
         }
-        [HttpDelete]
-        public async Task<ActionResult<Bicycle>> Delete(Bicycle bicycle)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Bicycle>> Delete(string id)
         {
-            
-            if (bicycle == null || bicycle.Id == Guid.Empty)
+            Guid guid = Guid.Parse(id);
+            if (guid == Guid.Empty)
                 BadRequest();
-            repository.Delete(bicycle);
+            repository.Delete(new Bicycle { Id = guid });
             repository.SaveChanges();
-            return Ok(bicycle);
+            return Ok();
         }
         [HttpPut]
         public async Task<ActionResult<Bicycle>> Put(Bicycle bicycle)
