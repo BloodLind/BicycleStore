@@ -30,6 +30,7 @@ namespace BicycleStore.Web.Controllers.API
         {
             if (bicycle == null)
                 BadRequest();
+<<<<<<< Updated upstream
             repository.CreateOrUpdate(bicycle,bicycle.Id);
             repository.SaveChanges();
             return Ok(bicycle);
@@ -42,6 +43,19 @@ namespace BicycleStore.Web.Controllers.API
                 BadRequest();
             repository.Delete(new Bicycle { Id = guid });
             repository.SaveChanges();
+=======
+            repository.CreateOrUpdate(bicycle);
+            repository.SaveChanges();
+            return Ok(bicycle);
+        }
+        [HttpDelete]
+        public async Task<ActionResult<Bicycle>> Delete(Guid id)
+        {
+            
+            if  (id == Guid.Empty)
+                BadRequest();
+            repository.Delete(id);
+>>>>>>> Stashed changes
             return Ok();
         }
         [HttpPut]
@@ -52,7 +66,7 @@ namespace BicycleStore.Web.Controllers.API
             if (repository.Get(bicycle.Id) == null)
                 return NotFound();
             else
-                return RedirectToAction("Get", bicycle);
+                return RedirectToAction("Post", bicycle);
         }
     }
             
