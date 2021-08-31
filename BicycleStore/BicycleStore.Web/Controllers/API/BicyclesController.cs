@@ -20,6 +20,12 @@ namespace BicycleStore.Web.Controllers.API
             this.repository = repository;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Bicycle>> Get(Guid id)
+        {
+            return await Task.Run(() => repository.Get(id));
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bicycle>>> Get()
         {
@@ -30,7 +36,7 @@ namespace BicycleStore.Web.Controllers.API
         {
             if (bicycle == null)
                 BadRequest();
-<<<<<<< Updated upstream
+
             repository.CreateOrUpdate(bicycle,bicycle.Id);
             repository.SaveChanges();
             return Ok(bicycle);
@@ -41,23 +47,11 @@ namespace BicycleStore.Web.Controllers.API
             Guid guid = Guid.Parse(id);
             if (guid == Guid.Empty)
                 BadRequest();
-            repository.Delete(new Bicycle { Id = guid });
+            repository.Delete(guid);
             repository.SaveChanges();
-=======
-            repository.CreateOrUpdate(bicycle);
-            repository.SaveChanges();
-            return Ok(bicycle);
-        }
-        [HttpDelete]
-        public async Task<ActionResult<Bicycle>> Delete(Guid id)
-        {
-            
-            if  (id == Guid.Empty)
-                BadRequest();
-            repository.Delete(id);
->>>>>>> Stashed changes
             return Ok();
         }
+       
         [HttpPut]
         public async Task<ActionResult<Bicycle>> Put(Bicycle bicycle)
         {
