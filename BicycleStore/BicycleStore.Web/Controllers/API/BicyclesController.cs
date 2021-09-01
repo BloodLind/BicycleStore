@@ -23,19 +23,28 @@ namespace BicycleStore.Web.Controllers.API
         [HttpGet("{id}")]
         public async Task<ActionResult<Bicycle>> Get(Guid id)
         {
+
+          
             return await Task.Run(() => repository.Get(id));
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bicycle>>> Get()
         {
+          
             return await repository.GetAll().ToListAsync();
         }
         [HttpPost]
         public async Task<ActionResult<Bicycle>> Post(Bicycle bicycle)
         {
-            if (bicycle == null)
-                BadRequest();
+          
+
+            if(bicycle.Price<0)
+            {
+                ModelState.AddModelError("Price", "your price is huynya!");
+            }
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             repository.CreateOrUpdate(bicycle,bicycle.Id);
             repository.SaveChanges();
@@ -44,6 +53,8 @@ namespace BicycleStore.Web.Controllers.API
         [HttpDelete("{id}")]
         public async Task<ActionResult<Bicycle>> Delete(string id)
         {
+
+           
             Guid guid = Guid.Parse(id);
             if (guid == Guid.Empty)
                 BadRequest();

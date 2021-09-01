@@ -37,7 +37,7 @@ function createRow(bicycle) {
 
     del.addEventListener('click', function(e) {
         let value = e.target.getAttribute('value');
-        var row = document.querySelector('#' + value);
+        var row = document.getElementById( value);
         document.querySelector('tbody').removeChild(row);
         fetch(apikey + value, { method: 'DELETE' });
     });

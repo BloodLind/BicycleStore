@@ -50,6 +50,7 @@ async function getApiElement() {
 }
 
 async function apiCreateElement(tittle, model, info, color, id, price) {
+   
     var request = await fetch(apikey, {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -63,7 +64,61 @@ async function apiCreateElement(tittle, model, info, color, id, price) {
         })
     });
     if (request.ok == true)
+    {
+        
         window.location.href = "index.html";
+    }
+        else
+        {
+            
+
+            let errorData  = await request.json();
+            console.log(errorData);
+            var form = document['bicycle'];
+
+           let errors = document.getElementsByClassName("error");
+           if(errors.length > 0 )
+           errors.forEach(element => {
+                element.parentElement.removeChild(element);
+            });
+            if(errorData.errors)
+            {
+              for(let key in errorData.errors )
+              {
+
+                if(errorData.errors[key])
+                {
+                    const p = document.createElement("p");
+                    p.style.display = "block";
+                    p.classList.add("error");
+                    p.append(errorData.errors[key]);
+                    console.log(errorData.errors[key]);
+                    form.getElementsByName(key.toLowerCase())[0].parentElement.parentElement.appendChild(p);
+                  
+                }
+              }
+              
+            }
+            else
+            {
+
+              
+                for(let key in errorData )
+              {
+
+                if(errorData[key])
+                {
+                    const p = document.createElement("p");
+                    p.classList.add("error");
+                    p.append(errorData[key]);
+                    console.log(errorData[key]);
+                    document.getElementsByName(key.toLowerCase())[0].parentElement.parentElement.appendChild(p);
+                }
+              }
+            }
+            
+        
+        }
 }
 
 function parseQueryString(query) {
