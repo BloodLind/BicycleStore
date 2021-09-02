@@ -1,5 +1,7 @@
 ﻿using BicycleStore.BikesDatabase.Models;
 using BicycleStore.Core.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace BicycleStore.Web.Controllers.API
 {
-    [ApiController, Route("api/[controller]")]
+    [ApiController, Route("api/[controller]"), Authorize(AuthenticationSchemes =
+    JwtBearerDefaults.AuthenticationScheme)]
     public class BicyclesController : Controller
     {
         private readonly IRepository<Bicycle> repository;
