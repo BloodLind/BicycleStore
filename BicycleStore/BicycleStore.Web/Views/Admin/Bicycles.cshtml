@@ -17,7 +17,7 @@
                 if (bicycle.Photo == null || bicycle.Photo.Base64Photo == "")
                 {
                     @:"/noimage.png"
-                 } else { @: "data:image /png;base64, @bicycle.Photo.Base64Photo"
+                 } else { @: "@bicycle.Photo.Base64Photo"
                  } } alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">@bicycle.Tittle</h5>

@@ -7,7 +7,7 @@ console.log(querryParametrs.hasOwnProperty('id'));
 if (querryParametrs.id != 'undefined' && querryParametrs.hasOwnProperty('id') != false) {
     getApiElement();
 } else {
-    document.querySelector("#sbm").addEventListener('click', function() {
+    document.querySelector("#sbm").addEventListener('click',async function() {
         var form = document['bicycle'];
         var bicycle = {
             'tittle': form.elements['tittle'].value,
@@ -15,9 +15,11 @@ if (querryParametrs.id != 'undefined' && querryParametrs.hasOwnProperty('id') !=
             'info': form.elements['info'].value,
             'color': form.elements['color'].value,
             'price': form.elements['price'].value,
-            "image":form.elements['image'].files[0],
+            'image': '',
         };
-        apiCreateElement(bicycle.tittle, bicycle.model, bicycle.info, bicycle.color, bicycle.id, bicycle.price);
+        bicycle.image =await toBase64(form.elements['image'].files[0]);
+        console.log(bicycle.image);
+        apiCreateElement(bicycle.tittle, bicycle.model, bicycle.info, bicycle.color, bicycle.id, bicycle.price,bicycle.image);
     });
 }
 
@@ -49,18 +51,35 @@ async function getApiElement() {
         });
     }
 }
-
-async function apiCreateElement(tittle, model, info, color, id, price) {
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+ async function apiCreateElement(tittle, model, info, color, id, price,image) {
    
+
+    console.log(JSON.stringify({
+        tittle,
+        model,
+        info,
+        color,
+        id,
+        image,
+        'price': parseInt(price)
+    }))
+    var token = sessionStorage.getItem("token");
     var request = await fetch(apikey, {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'bearer ' + token },
         body: JSON.stringify({
             tittle,
             model,
             info,
             color,
             id,
+            image,
             'price': parseInt(price)
         })
     });

@@ -1,5 +1,6 @@
 ﻿using BicycleStore.BikesDatabase.Models;
 using BicycleStore.Core.Infrastructure.Interfaces;
+using BicycleStore.Web.Models.ViewModels.Api;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -39,17 +40,22 @@ namespace BicycleStore.Web.Controllers.API
             return await repository.GetAll().ToListAsync();
         }
         [HttpPost]
-        public async Task<ActionResult<Bicycle>> Post(Bicycle bicycle, IFormFile image)
+        public async Task<ActionResult<Bicycle>> Post(BicycleResponse bicycleResponse)
         {
-          
-
-            if(bicycle.Price<0)
+            if(bicycleResponse.Price<0)
             {
                 ModelState.AddModelError("Price", "your price is huynya!");
             }
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
-            if (image == null || image.Length == 0)
+
+            Bicycle bicycle = new Bicycle();
+
+            foreach (var prop in bicycleResponse.GetType().GetProperties())
+                if(bicycle.GetType().GetProperty(prop.Name) != null)
+                bicycle.GetType().GetProperty(prop.Name).SetValue(bicycle, prop.GetValue(bicycleResponse));
+
+            if (bicycleResponse.Image == null || bicycleResponse.Image.Length == 0)
             {
                 ModelState.AddModelError("", "file not selected");
                 return RedirectToAction("CreateOrEditBicycle", "Admin", (bicycle.Id));
@@ -62,18 +68,12 @@ namespace BicycleStore.Web.Controllers.API
             //}
 
 
-            using (var stream = new MemoryStream())
-            {
-                await image.CopyToAsync(stream);
-
-                byte[] bytesOfImage = stream.ToArray();
-                string base64String = Convert.ToBase64String(bytesOfImage);
-                bicycle.Photo = new Photo() { Base64Photo = base64String };
 
 
-            }
 
-            repository.CreateOrUpdate(bicycle,bicycle.Id);
+            bicycle.Photo = new Photo() { Base64Photo = bicycleResponse.Image };
+            
+            repository.CreateOrUpdate(bicycle, bicycle.Id);
             repository.SaveChanges();
             return Ok(bicycle);
         }

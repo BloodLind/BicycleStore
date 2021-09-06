@@ -74,10 +74,8 @@ namespace BicycleStore.Web.Controllers
                     await image.CopyToAsync(stream);
                   
                         byte[] bytesOfImage = stream.ToArray();
-                        string base64String = Convert.ToBase64String(bytesOfImage);
+                        string base64String = "data: image / png; base64" + Convert.ToBase64String(bytesOfImage);
                         bicycle.Photo = new Photo() { Base64Photo = base64String };
-
-                    
                 }
                 bicycleRepository.CreateOrUpdate(bicycle, bicycle.Id);
                 bicycleRepository.SaveChanges();
