@@ -30,31 +30,16 @@
 </header>
 
 <body class="d-flex flex-column justify-content-center">
-    <a class="btn btn-primary align-self-center" href="edit.html">Add Bicycle</a>
-    <div class="d-flex flex-column p-5">
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Tittle</th>
-                    <th>Model</th>
-                    <th>Price</th>
-                    <th>Color</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-
-
-        </table>
+    <div id="loginForm" class="col-10 flex-column d-flex justify-content-center">
+        <label for="login">Login: </label>
+        <input type="text" class="form-input" id="login" />
+        <label for="password">Password: </label>
+        <input type="password" class="form-input" id="password" />
+        <button id="submitLogin" class="btn-primary btn bg-primary">Login</button>
     </div>
-
 </body>
-<script src="index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 <script src="account.js"></script>
+<script src="login.js"></script>
 
 </html>
