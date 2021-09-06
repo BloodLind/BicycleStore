@@ -1,9 +1,17 @@
-const apikey = "https://localhost:44373/api/Bicycles/";
-
+var apikey = "https://localhost:44373/api/Bicycles/";
+var tokenKey = "token";
 getApiData();
 
+
 async function getApiData() {
-    var response = await fetch(apikey, { method: 'GET', headers: { 'Access-Control-Allow-Origin': '*' } });
+    var token = sessionStorage.getItem(tokenKey);
+    var response = await fetch(apikey, {
+        method: 'GET',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': 'bearer ' + token
+        }
+    });
     if (response.ok == true) {
         let Bicycles = (await response.json());
         console.log(Bicycles);
