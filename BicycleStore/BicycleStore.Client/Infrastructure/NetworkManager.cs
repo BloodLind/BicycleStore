@@ -9,6 +9,6 @@ namespace BicycleStore.Client.Infrastructure
     class NetworkManager
     {
 
-        public static  string DomenName { get; set; } = "https://localhost:44373";
+        public static  string DomenName { get; set; } = "https://localhost:5001";
     }
 }

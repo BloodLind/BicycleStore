@@ -20,6 +20,11 @@ using BicycleStore.Core.Infrastructure.Interfaces;
 using BicycleStore.BikesDatabase.Models;
 using BicycleStore.BikesDatabase.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using BicycleStore.Web.Services.Interfaces;
+using BicycleStore.Web.Services;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace BicycleStore.Web
 {
@@ -35,7 +40,7 @@ namespace BicycleStore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
+          
             services.AddControllersWithViews();
             services.AddMvc(options =>
             {
@@ -51,7 +56,23 @@ namespace BicycleStore.Web
              .AddDefaultTokenProviders();
             services.AddDistributedMemoryCache();
             services.AddSession();
-           
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super-mega-puper-key"));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(
+                    opt =>
+                    {
+                        opt.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = key,
+                            ValidateAudience = false,
+                            ValidateIssuer = false,
+                        };
+
+                    });
+
+
             IdentityBuilder identityBuilder = services.AddIdentityCore<User>(options =>
             {
                 // Password settings.
@@ -77,6 +98,7 @@ namespace BicycleStore.Web
             services.AddTransient<DbContext, BicycleContext>();
             services.AddTransient<IRepository<Bicycle>, BicycleRepository>();
             services.AddTransient<IRepository<Order>, OrderRepository>();
+            services.AddTransient<IJwtGenerator, JwtGenerator>();
 
             identityBuilder.AddRoles<Role>();
             identityBuilder.AddUserManager<UserManager<User>>();
