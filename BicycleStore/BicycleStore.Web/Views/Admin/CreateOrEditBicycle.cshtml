@@ -5,7 +5,7 @@
 }
 @model BicycleStore.BikesDatabase.Models.Bicycle
 
-<form asp-action="SaveBicyclesData" asp-controller="Admin" class="d-flex flex-column justify-content-center needs-validation justify-items-center ">
+<form asp-action="SaveBicyclesData" asp-controller="Admin" enctype="multipart/form-data" method="post" class="d-flex flex-column justify-content-center needs-validation justify-items-center ">
     @Html.ValidationSummary()
 
     <div>
@@ -41,6 +41,13 @@
         <div class="input-group has-validation">
             <input type="text" class="form-control" asp-for="Price">
             <div class="invalid">@Html.ValidationMessageFor(x => x.Price)</div>
+        </div>
+    </div>
+    <div>
+        <label  class="form-label">Image</label>
+        <div class="input-group has-validation">
+            <input type="file" class="form-control" name="image">
+            
         </div>
     </div>
 

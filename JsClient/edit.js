@@ -14,7 +14,8 @@ if (querryParametrs.id != 'undefined' && querryParametrs.hasOwnProperty('id') !=
             'model': form.elements['model'].value,
             'info': form.elements['info'].value,
             'color': form.elements['color'].value,
-            'price': form.elements['price'].value
+            'price': form.elements['price'].value,
+            "image":form.elements['image'].files[0],
         };
         apiCreateElement(bicycle.tittle, bicycle.model, bicycle.info, bicycle.color, bicycle.id, bicycle.price);
     });

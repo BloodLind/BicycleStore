@@ -8,35 +8,28 @@
 @addTagHelper *,BicycleStore.Web.TagHelpers.PaginationTagHelper
 @addTagHelper *,BicycleStore.Web
 <a class="btn-dark btn" asp-controller="Admin" asp-action="CreateOrEditBicycle">Add</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Tittle</th>
-            <th>Model</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var bicycle in Model)
-        {
-            <tr>
-                <td>@bicycle.Tittle</td>
-                <td>@bicycle.Model</td>
-                <td>@bicycle.Price</td>
-                <td><a class="btn btn-primary" asp-action="CreateOrEditBicycle" asp-controller="Admin" asp-route-id="@bicycle.Id">Edit</a></td>
+<div class="d-flex flex-row flex-wrap justify-content-around">
+    @foreach (var bicycle in Model)
+    {
 
-                <td>
-                    <a class="btn btn-danger" asp-action="DeleteBicycle" asp-controller="Admin" asp-route-id="@bicycle.Id">Delete</a>
-                </td>
-
-
-
-            </tr>
-        }
-    </tbody>
-
-
-</table>
+        <div class="card col-3 m-3 d-flex flex-column justify-content-around"  >
+            <img loading="lazy" class="card-img-top" src=@{
+                if (bicycle.Photo == null || bicycle.Photo.Base64Photo == "")
+                {
+                    @:"/noimage.png"
+                 } else { @: "data:image /png;base64, @bicycle.Photo.Base64Photo"
+                 } } alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@bicycle.Tittle</h5>
+                <h5 class="card-title">@bicycle.Model</h5>
+                <h5 class="card-title">@bicycle.Price</h5>
+                <p class="card-text">@bicycle.Info</p>
+                <a class="btn btn-primary" asp-action="CreateOrEditBicycle" asp-controller="Admin" asp-route-id="@bicycle.Id">Edit</a>
+                <a class="btn btn-danger" asp-action="DeleteBicycle" asp-controller="Admin" asp-route-id="@bicycle.Id">Delete</a>
+            </div>
+        </div>
+    }
+</div>
 <div class="d-flex flex-row justify-content-center">
     <pagination count-pages="@ViewBag.countPages" current-page="@ViewBag.currentPage" page-action="Index"></pagination>
 

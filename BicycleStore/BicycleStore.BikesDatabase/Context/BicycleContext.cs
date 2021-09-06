@@ -11,8 +11,9 @@ namespace BicycleStore.BikesDatabase.Context
     {
 
         public DbSet<Bicycle> Bicycles { get; set; }
-        public DbSet<Order>  Orders { set; get; }
+        public DbSet<Order> Orders { set; get; }
         public DbSet<OrderBicycle> OrderBicycle { set; get; }
+        public DbSet<Photo> Photos { set; get; }
 
 
 

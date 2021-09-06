@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,7 +39,7 @@ namespace BicycleStore.Web.Controllers.API
             return await repository.GetAll().ToListAsync();
         }
         [HttpPost]
-        public async Task<ActionResult<Bicycle>> Post(Bicycle bicycle)
+        public async Task<ActionResult<Bicycle>> Post(Bicycle bicycle, IFormFile image)
         {
           
 
@@ -48,6 +49,29 @@ namespace BicycleStore.Web.Controllers.API
             }
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
+            if (image == null || image.Length == 0)
+            {
+                ModelState.AddModelError("", "file not selected");
+                return RedirectToAction("CreateOrEditBicycle", "Admin", (bicycle.Id));
+            }
+
+            //if(!GetImageTypes().Contains(Path.GetExtension(image.FileName)))
+            //{
+            //    ModelState.AddModelError("", "its not image");
+            //    return RedirectToAction("CreateOrEditBicycle", "Admin", (bicycle.Id));
+            //}
+
+
+            using (var stream = new MemoryStream())
+            {
+                await image.CopyToAsync(stream);
+
+                byte[] bytesOfImage = stream.ToArray();
+                string base64String = Convert.ToBase64String(bytesOfImage);
+                bicycle.Photo = new Photo() { Base64Photo = base64String };
+
+
+            }
 
             repository.CreateOrUpdate(bicycle,bicycle.Id);
             repository.SaveChanges();

@@ -25,6 +25,8 @@ using BicycleStore.Web.Services;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace BicycleStore.Web
 {

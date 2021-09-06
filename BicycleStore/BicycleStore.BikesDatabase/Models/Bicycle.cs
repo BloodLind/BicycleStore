@@ -29,5 +29,11 @@ namespace BicycleStore.BikesDatabase.Models
 
         [Key, UnFiltered]
         public Guid Id { get ; set; }
+        [UnFiltered]
+
+        public Guid PhotoId { get; set; }
+        [UnFiltered]
+
+        public Photo Photo { set; get; }
     }
 }

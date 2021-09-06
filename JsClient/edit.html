@@ -31,7 +31,7 @@
 </header>
 
 <body>
-    <form name="bicycle" class="d-flex flex-column justify-content-center needs-validation justify-items-center col-10 m-5">
+    <form name="bicycle" class="d-flex flex-column justify-content-center needs-validation justify-items-center col-10 m-5"  enctype="multipart/form-data" >
 
         <div>
             <label class="form-label">Title</label>
@@ -66,6 +66,13 @@
             <label asp-for="Price" class="form-label">Price</label>
             <div class="input-group has-validation">
                 <input type="text" class="form-control" name="price">
+                <br/>
+            </div>
+        </div>
+        <div>
+            <label asp-for="Price" class="form-label">Image</label>
+            <div class="input-group has-validation">
+                <input type="file" class="form-control" name="image">
                 <br/>
             </div>
         </div>

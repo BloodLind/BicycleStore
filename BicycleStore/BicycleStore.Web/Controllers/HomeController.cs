@@ -4,6 +4,7 @@ using BicycleStore.BikesDatabase.Repositories;
 using BicycleStore.Core.Infrastructure.Interfaces;
 using BicycleStore.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -32,10 +33,10 @@ namespace BicycleStore.Web.Controllers
             List<Bicycle> bicycles;
             if (category != null)
             {
-                bicycles = bicycleRepository.GetAll().ToList().OrderBy((x => x.GetType().GetProperty(category).GetValue(x))).ToList();
+                bicycles = bicycleRepository.GetAll().Include(x=>x.Photo).ToList().OrderBy((x => x.GetType().GetProperty(category).GetValue(x))).ToList();
             }
             else
-                bicycles = bicycleRepository.GetAll().ToList();
+                bicycles = bicycleRepository.GetAll().Include(x => x.Photo).ToList();
 
             foreach (var pair in HomeController.filters)
                 if (pair.Value.Count > 0)

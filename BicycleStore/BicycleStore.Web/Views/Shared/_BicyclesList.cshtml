@@ -17,29 +17,36 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var bicycle in Model)
-        {
-            <tr>
 
-                <td>@bicycle.Tittle</td>
-                <td>@bicycle.Model</td>
-                <td style="height:1ch;color:@bicycle.Color"></td>
-                <td>@bicycle.Price</td>
+        <div class="d-flex flex-row flex-wrap justify-content-around">
+            @foreach (var bicycle in Model)
+            {
 
+                <div class="card col-3 d-flex flex-column m-3 justify-content-around">
+                    <img loading="lazy" class="card-img-top" src=@{
+                if (bicycle.Photo == null || bicycle.Photo.Base64Photo == "")
+                {
+                    @:" /noimage.png"
+                         } else { @: "data:image /png;base64, @bicycle.Photo.Base64Photo"
+                         } } alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@bicycle.Tittle</h5>
+                        <h5 class="card-title">@bicycle.Model</h5>
+                        <h5 class="card-title">@bicycle.Price</h5>
+                        <p class="card-text">@bicycle.Info</p>
+                        @using (Html.BeginForm("AddToCart", "Cart"))
+                        {
 
-                <td>
-                    @using (Html.BeginForm("AddToCart", "Cart"))
-                    {
+                            <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                            <input type="hidden" name="id" value="@bicycle.Id" />
+                            <input type="submit" value="+" class="btn btn-info" />
+                        }
+                    </div>
+                </div>
 
-                        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                        <input type="hidden" name="id" value="@bicycle.Id" />
-                        <input type="submit" value="+" class="btn btn-info" />
-                    }
-                </td>
+            }
+            </div>
 
-
-            </tr>
-        }
     </tbody>
 </table>
 <div class="d-flex flex-row justify-content-center">
