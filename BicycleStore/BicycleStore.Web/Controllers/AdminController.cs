@@ -56,21 +56,17 @@ namespace BicycleStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (image == null || image.Length == 0)
+                if (image != null && image.Length > 0)
                 {
-                    ModelState.AddModelError("","file not selected");
-                    return View("CreateOrEditBicycle", bicycle);
-                }
+                   
+                    using (var stream = new MemoryStream())
+                    {
+                        await image.CopyToAsync(stream);
 
-
-           
-                using (var stream = new MemoryStream())
-                {
-                    await image.CopyToAsync(stream);
-                  
                         byte[] bytesOfImage = stream.ToArray();
                         string base64String = $"data: image / {Path.GetExtension(image.FileName).Trim('.')}; base64, " + Convert.ToBase64String(bytesOfImage);
                         bicycle.Photo = new Photo() { Base64Photo = base64String };
+                    }
                 }
                 bicycleRepository.CreateOrUpdate(bicycle, bicycle.Id);
                 bicycleRepository.SaveChanges();

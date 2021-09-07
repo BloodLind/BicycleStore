@@ -5,30 +5,40 @@
 }
 @model BicycleStore.Identity.Models.User
 
-@using (Html.BeginForm("EditUserData", "Admin", FormMethod.Post))
-{
-    @Html.ValidationSummary()
-    @Html.HiddenFor(x => x.Id);
-    <div>
-        @Html.LabelFor(x => x.Email)
-        @Html.TextBoxFor(x => x.Email)
-        @Html.ValidationMessageFor(x => x.Email)
-    </div>
-    <div>
-        @Html.LabelFor(x => x.Firstname)
-        @Html.TextBoxFor(x => x.Firstname)
-        @Html.ValidationMessageFor(x => x.Firstname)
-    </div>
-    <div>
-        @Html.LabelFor(x => x.Secondname)
-        @Html.TextBoxFor(x => x.Secondname)
-        @Html.ValidationMessageFor(x => x.Secondname)
-    </div>
-    <div>
-        @Html.LabelFor(x => x.PhoneNumber)
-        @Html.TextBoxFor(x => x.PhoneNumber)
-        @Html.ValidationMessageFor(x => x.PhoneNumber)
-    </div>
 
-    <input type="submit" value="Save" class="btn btn-primary" />
-}
+<form method="post" class="cardContainer" asp-action="EditUserData">
+
+
+    <div class="myCard">
+
+        @Html.ValidationSummary()
+
+        @Html.HiddenFor(x => x.Id);
+        <div class="d-flex flex-column justify-items-center   m-3">
+
+            @Html.LabelFor(x => x.Email)
+            @Html.TextBoxFor(x => x.Email)
+            @Html.ValidationMessageFor(x => x.Email)
+
+            @Html.LabelFor(x => x.Firstname)
+            @Html.TextBoxFor(x => x.Firstname)
+            @Html.ValidationMessageFor(x => x.Firstname)
+
+        </div>
+        <div class="d-flex flex-column justify-items-center   m-3">
+
+            @Html.LabelFor(x => x.Secondname)
+            @Html.TextBoxFor(x => x.Secondname)
+            @Html.ValidationMessageFor(x => x.Secondname)
+
+            @Html.LabelFor(x => x.PhoneNumber)
+            @Html.TextBoxFor(x => x.PhoneNumber)
+            @Html.ValidationMessageFor(x => x.PhoneNumber)
+
+        </div>
+        <div style=" flex-basis: 100%; height: 0;"></div>
+        <input type="submit" value="Save" class="btn btn-primary" />
+
+
+    </div>
+</form>

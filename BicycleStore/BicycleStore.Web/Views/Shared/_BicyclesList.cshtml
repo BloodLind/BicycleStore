@@ -7,22 +7,12 @@
 @addTagHelper *,BicycleStore.Web.TagHelpers.PaginationTagHelper
 @addTagHelper *,BicycleStore.Web
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Tittle</th>
-            <th>Model</th>
-            <th>Color</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody>
 
         <div class="d-flex flex-row flex-wrap justify-content-around">
             @foreach (var bicycle in Model)
             {
 
-                <div class="card col-3 d-flex flex-column m-3 justify-content-around">
+                <div class="card col-3 d-flex flex-column m-3 justify-content-around text-dark">
                     <img loading="lazy" class="card-img-top" src=@{
                 if (bicycle.Photo == null || bicycle.Photo.Base64Photo == "")
                 {
@@ -36,10 +26,11 @@
                         <p class="card-text">@bicycle.Info</p>
                         @using (Html.BeginForm("AddToCart", "Cart"))
                         {
-
-                            <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                            <input type="hidden" name="id" value="@bicycle.Id" />
-                            <input type="submit" value="+" class="btn btn-info" />
+                    <div class="d-flex flex-row-reverse">
+                        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                        <input type="hidden" name="id" value="@bicycle.Id" />
+                        <input type="submit" value="+" class="btn btn-info" />
+                    </div>
                         }
                     </div>
                 </div>
@@ -47,8 +38,7 @@
             }
             </div>
 
-    </tbody>
-</table>
+
 <div class="d-flex flex-row justify-content-center">
 
     <pagination count-pages="@ViewBag.countPages" current-page="@ViewBag.currentPage" url-route-values-category="@ViewContext.RouteData.Values["category"]" page-action="Index"></pagination>

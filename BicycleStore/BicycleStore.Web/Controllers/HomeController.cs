@@ -16,7 +16,7 @@ namespace BicycleStore.Web.Controllers
 {
     public class HomeController : Controller
     {
-        static private readonly int countInOnePage = 10;
+        static private readonly int countInOnePage = 2;
         static private  int page = 1;
         static private  string category = null;
         static private string searchText = null;
