@@ -6,7 +6,10 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
-
+.invalid 
+{
+    color:red;
+}
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -69,3 +72,487 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+@import url(https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap);
+
+
+.sectionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+}
+
+.articalSection {
+    background: rgb(255,255,255,0.3);
+    backdrop-filter: blur(15px);
+    padding: 2rem 1rem;
+    margin: 5rem;
+    max-width: 700px;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.author {
+    opacity: 70%;
+    font-size: 1.8ch;
+    font-style: italic;
+    margin: 5px;
+}
+
+.articalSection img {
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    width: 100%;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: center;
+}
+
+.myCard {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 5em;
+    border-radius: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    min-height: min-content;
+ flex-wrap:wrap;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-items: center;
+    margin: 4ch;
+}
+
+.articleCard {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0.5em;
+    border-radius: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    min-height: min-content;
+    height: 700px;
+    width: fit-content;
+    display: flex;
+    justify-content: stretch;
+    justify-items: stretch;
+    flex-direction: column;
+    margin: 4ch;
+    width: 800px;
+}
+
+.myCard  img {
+    height: 20ch;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+}
+
+.myCard p {
+    font-weight: 500;
+    color: #fff;
+    opacity: 0.7;
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 60px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.myCard  label
+{
+    color:white;
+}
+.myCard .btn {
+    background: transparent;
+    padding: 1em;
+    margin-bottom: 2em;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5000px;
+    backdrop-filter: blur(5px);
+    box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+.myCard input {
+    background: transparent;
+    padding: 1em;
+    margin-bottom: 2em;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5000px;
+    backdrop-filter: blur(5px);
+    box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.myCard .invalidInp{
+   
+    background:rgb(247 13 13 / 58%);
+}
+textarea {
+    height: 100%;
+    background: transparent;
+    resize: both;
+    padding: 1em;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2%;
+    backdrop-filter: blur(5px);
+    box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.myCard input:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
+}
+
+.myCard input[type="email"]:focus, .myCard input[type="password"]:focus {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
+}
+
+.myCard input[type="button"] {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+    .myCard input[type="button"]:hover {
+        cursor: pointer;
+    }
+
+    .myCard input[type="button"]:active {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+
+
+::placeholder {
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.drop {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 10px 10px 60px -8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    transition: 0.2s;
+    z-index: -1;
+}
+
+@media screen and (max-width:400px) {
+    .cardContainer {
+        flex-direction: column-reverse;
+        justify-content: center;
+        justify-items: center;
+    }
+
+    .myCard {
+        padding: 1.5em;
+        margin: 15px;
+        width: 90%;
+    }
+
+    .articleCard {
+        margin: 2ch;
+        width: 90%;
+    }
+
+    .articalSection {
+        padding: 10px 5px;
+        margin: 2rem;
+        border-radius: 20px;
+    }
+
+        .articalSection img {
+            border-radius: 18px;
+        }
+}
+
+a, input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+}
+
+    a.navbar-brand {
+        white-space: normal;
+        text-align: center;
+        word-break: break-all;
+    }
+
+body {
+    background: linear-gradient(316deg, #a1c4d2, #434d85, #804ba5, #d08857);
+    background-size: 800% 800%;
+    animation: AnimationName 7s ease infinite;
+}
+
+@keyframes AnimationName {
+    0% {
+        background-position: 0% 44%
+    }
+
+    50% {
+        background-position: 100% 57%
+    }
+
+    100% {
+        background-position: 0% 44%
+    }
+}
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .10rem .15rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.navbar-light {
+    border: none !important;
+    background: rgb(255,255,255,0.3) !important;
+    backdrop-filter: blur(10px);
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-items: center;
+    margin-top: auto;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    border: none;
+    backdrop-filter: blur(10px);
+    background: rgb(255,255,255,0.1);
+}
+
+body {
+    background-color: #f2f2f2;
+    font-family: 'RobotoDraft', 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+h5 {
+    margin: 0px;
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+p {
+    font-size: 14px;
+}
+
+.center {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* End Non-Essential  */
+
+.property-card {
+    height: 18em;
+    width: 14em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 17px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+    -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -o-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+@media screen and (max-width:400px) {
+    .property-card {
+        width: 100%;
+        margin: 8px;
+    }
+}
+/* ^-- The margin bottom is necessary for the drop shadow otherwise it gets clipped in certain cases. */
+
+/* Top Half of card, image. */
+
+.property-image {
+    height: 6em;
+    width: 100%;
+    padding: 1em 2em;
+    position: Absolute;
+    top: 0px;
+    -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -o-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Bottom Card Section */
+
+.property-description {
+    background: rgba(255, 255, 255, 0.1);
+    height: 12em;
+    width: 100%;
+    position: absolute;
+    bottom: 0em;
+    -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -o-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    padding: 0.5em 1em;
+    text-align: center;
+}
+
+/* Social Icons */
+
+.property-social-icons {
+    width: fit-content;
+    background-color: black;
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -o-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    color: lightslategray;
+}
+
+/* Property Cards Hover States */
+
+.property-card:hover .property-description {
+    height: 0em;
+    padding: 0px 1em;
+}
+
+.property-card:hover .property-image {
+    height: 18em;
+}
+
+.property-card:hover .property-social-icons {
+    background-color: white;
+}
+
+    .property-card:hover .property-social-icons:hover {
+        background-color: gray;
+        cursor: pointer;
+    }
+
+
+/* Optional
+
+.property-image-title
+{
+text-align:center;
+position:Relative;
+top:30%;
+opacity:0;
+transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s;
+color:black;
+font-size:1.2em;
+}
+
+.property-card:hover .property-image-title
+{
+opacity:1;
+}
+
+*/

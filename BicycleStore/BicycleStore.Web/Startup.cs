@@ -131,7 +131,7 @@ namespace BicycleStore.Web
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
             app.UseSession();
@@ -141,7 +141,14 @@ namespace BicycleStore.Web
 
             app.UseAuthorization();
 
-            
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = context =>
+                {
+                    context.Context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
+                    context.Context.Response.Headers.Add("Expires", "-1");
+                }
+            });
             app.UseMvc(route =>
             {
                 route.MapRoute(

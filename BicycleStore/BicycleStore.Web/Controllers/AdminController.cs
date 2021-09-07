@@ -47,7 +47,7 @@ namespace BicycleStore.Web.Controllers
             }
             else
             {
-                return View(bicycleRepository.GetAll().FirstOrDefault(x => x.Id == Guid.Parse(id)));
+                return View(bicycleRepository.GetAll().Include(x=>x.Photo).FirstOrDefault(x => x.Id == Guid.Parse(id)));
             }
         }
 
@@ -59,14 +59,9 @@ namespace BicycleStore.Web.Controllers
                 if (image == null || image.Length == 0)
                 {
                     ModelState.AddModelError("","file not selected");
-                    return RedirectToAction("CreateOrEditBicycle", "Admin", (bicycle.Id));
+                    return View("CreateOrEditBicycle", bicycle);
                 }
 
-                //if(!GetImageTypes().Contains(Path.GetExtension(image.FileName)))
-                //{
-                //    ModelState.AddModelError("", "its not image");
-                //    return RedirectToAction("CreateOrEditBicycle", "Admin", (bicycle.Id));
-                //}
 
            
                 using (var stream = new MemoryStream())
@@ -74,26 +69,17 @@ namespace BicycleStore.Web.Controllers
                     await image.CopyToAsync(stream);
                   
                         byte[] bytesOfImage = stream.ToArray();
-                        string base64String = "data: image / png; base64" + Convert.ToBase64String(bytesOfImage);
+                        string base64String = $"data: image / {Path.GetExtension(image.FileName).Trim('.')}; base64, " + Convert.ToBase64String(bytesOfImage);
                         bicycle.Photo = new Photo() { Base64Photo = base64String };
                 }
                 bicycleRepository.CreateOrUpdate(bicycle, bicycle.Id);
                 bicycleRepository.SaveChanges();
                 return RedirectToAction("Bicycles");
             }
-            
-            return RedirectToAction("CreateOrEditBicycle", "Admin" , bicycle.Id);
+
+            return View("CreateOrEditBicycle", bicycle);
         }
-        private List<string> GetImageTypes()
-        {
-            return new List<string>
-            {
-                {".png"},
-                {".jpg"},
-                {".jpeg"},
-                {".gif"},    
-            };
-        }
+      
 
         public IActionResult DeleteBicycle(string id)
         {

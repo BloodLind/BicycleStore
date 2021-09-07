@@ -6,31 +6,34 @@
 @model BicycleStore.Web.Models.ViewModels.Account.LoginViewModel
 <div class="d-flex flex-row justify-content-center align-items-center">
 
-<form method="post">
-    <div class="form-group">
-        <div>
-            @Html.ValidationSummary()
+    <form method="post" class="cardContainer">
+
+        <div class="myCard">
+            <div class="d-flex flex-column justify-items-center   m-3">
+                @Html.ValidationSummary()
+
+
+                @Html.LabelFor(x => x.Email)
+                @Html.TextBoxFor(x => x.Email)
+                @Html.ValidationMessageFor(x => x.Email)
+
+                @Html.LabelFor(x => x.Password)
+                @Html.PasswordFor(x => x.Password)
+                @Html.ValidationMessageFor(x => x.Password)
+
+
+
+                <input type="submit" value="Login" class="btn btn-primary" />
+                <a class="btn btn-primary" asp-action="Register">
+                    Register
+                </a>
+            </div>
+
         </div>
-        <div>
-            @Html.LabelFor(x => x.Email)
-            @Html.TextBoxFor(x => x.Email)
-            @Html.ValidationMessageFor(x => x.Email)
-        </div>
-        <div>
-            @Html.LabelFor(x => x.Password)
-            @Html.PasswordFor(x => x.Password)
-            @Html.ValidationMessageFor(x => x.Password)
-        </div>
-
-        <input type="submit" value="Login" class="btn btn-primary" />
-
-    </div>
-</form>
+    </form>
 
 
 
 
-<a class="btn btn-primary" asp-action="Register">
-    Register
-</a>
+   
 </div>

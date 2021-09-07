@@ -2,56 +2,59 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+
+
+   
 }
 @model BicycleStore.BikesDatabase.Models.Bicycle
 
-<form asp-action="SaveBicyclesData" asp-controller="Admin" enctype="multipart/form-data" method="post" class="d-flex flex-column justify-content-center needs-validation justify-items-center ">
+<form asp-action="SaveBicyclesData" asp-controller="Admin" enctype="multipart/form-data" method="post" class="cardContainer">
     @Html.ValidationSummary()
-
-    <div>
-        <label asp-for="Tittle" class="form-label"></label>
-        <div class="input-group has-validation">
-            <input type="text" class="form-control" asp-for="Tittle">
+    <div class="myCard">
+        <div class="d-flex flex-column justify-items-center   m-3">
+            @Html.LabelFor(x => x.Tittle)
+            <input type="text" placeholder="Tittle" asp-for="Tittle">
             <div class="invalid">@Html.ValidationMessageFor(x => x.Tittle)</div>
-        </div>
-    </div>
-    <div>
-        <label asp-for="Model" class="form-label"></label>
-        <div class="input-group has-validation">
-            <input type="text" class="form-control" asp-for="Model">
+
+            <label asp-for="Model"></label>
+            <input placeholder="Model" type="text" asp-for="Model">
             <div class="invalid">@Html.ValidationMessageFor(x => x.Model)</div>
-        </div>
-    </div>
-    <div>
-        <label asp-for="Info" class="form-label"></label>
-        <div class="input-group has-validation">
-            <input type="text" class="form-control" asp-for="Info">
+
+
+
+            <label asp-for="Info"></label>
+            <input placeholder="Info" type="text" asp-for="Info">
             <div class="invalid">@Html.ValidationMessageFor(x => x.Info)</div>
         </div>
-    </div>
-    <div>
-        <label asp-for="Color" class="form-label"></label>
-        <div class="input-group has-validation">
-            <input type="text" class="form-control" asp-for="Color">
+
+        <div class="d-flex flex-column justify-items-center   m-3">
+            <label asp-for="Color"></label>
+
+            <input placeholder="Color" type="text" asp-for="Color">
             <div class="invalid">@Html.ValidationMessageFor(x => x.Color)</div>
-        </div>
-    </div>
-    <div>
-        <label asp-for="Price" class="form-label"></label>
-        <div class="input-group has-validation">
-            <input type="text" class="form-control" asp-for="Price">
+
+
+            <label asp-for="Price"></label>
+           
+            <input placeholder="Price" type="text" asp-for="Price">
             <div class="invalid">@Html.ValidationMessageFor(x => x.Price)</div>
+
+            <img loading="lazy" src=@{
+                if (Model.Photo == null || Model.Photo.Base64Photo == "")
+                {
+                    @:" /noimage.png"
+                 } else { @: "@Model.Photo.Base64Photo"
+                 } } id="imgPreview">
+
+            <input type="button" value="select image" onclick="document.getElementById('selectFile').click()" />
+            <input type="file" name="image" id="selectFile" style="display:none" aria-describedby="fileHelp">
+            @Html.HiddenFor(x => x.Id)
         </div>
+        <div style=" flex-basis: 100%; height: 0;"></div>
+        <input type="submit"  value="Save" style="padding: 1rem 4rem 1rem 4rem; ">
     </div>
-    <div>
-        <label  class="form-label">Image</label>
-        <div class="input-group has-validation">
-            <input type="file" class="form-control" name="image">
-            
-        </div>
-    </div>
+   
 
 
-    @Html.HiddenFor(x => x.Id)
-    <input type="submit" class="btn btn-danger" value="OK" />
+       
 </form>
