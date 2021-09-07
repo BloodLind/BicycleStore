@@ -29,7 +29,8 @@ namespace BicycleStore.BikesDatabase.Context
         {
 
             modelBuilder.Entity<OrderBicycle>().HasKey(x => new { x.OrderId, x.BicycleId });
-
+            modelBuilder.Entity<Bicycle>().HasOne(x => x.Photo);
+            
             
 
         }

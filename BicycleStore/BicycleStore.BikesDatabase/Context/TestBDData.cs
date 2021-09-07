@@ -21,6 +21,7 @@ namespace BicycleStore.BikesDatabase.Context
                         Price = 500,
                         Color = "black",
                         Info = "",
+                        
 
                     },
                       new Bicycle

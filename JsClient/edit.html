@@ -31,55 +31,60 @@
 </header>
 
 <body>
-    <form name="bicycle" class="d-flex flex-column justify-content-center needs-validation justify-items-center col-10 m-5"  enctype="multipart/form-data" >
+    <form name="bicycle" class="d-flex flex-row justify-content-around needs-validation justify-items-center col-10 m-5" enctype="multipart/form-data">
+        <div class="d-flex flex-column col-5">
 
-        <div>
-            <label class="form-label">Title</label>
-            <div class="input-group">
-                <input type="text" class="form-control" name="tittle">
-                <br/>
+            <div>
+                <label class="form-label lead">Title</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="tittle">
+                    <br/>
+                </div>
+            </div>
+            <div>
+                <label class="form-label lead">Model</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="model">
+                    <br/>
+                </div>
+            </div>
+            <div>
+                <label class="form-label lead">Info</label>
+                <div class="input-group has-validation">
+                    <input type="text" class="form-control" name="info">
+                    <br/>
+                </div>
+            </div>
+            <div>
+                <label class="form-label lead">Color</label>
+                <div class="input-group has-validation">
+                    <input type="text" class="form-control" name="color">
+                    <br/>
+                </div>
+            </div>
+            <div>
+                <label class="form-label lead">Price</label>
+                <div class="input-group has-validation">
+                    <input type="text" class="form-control" name="price">
+                    <br/>
                 </div>
             </div>
         </div>
-        <div>
-            <label class="form-label">Model</label>
-            <div class="input-group">
-                <input type="text" class="form-control" name="model">
-                <br/>
-            </div>
-        </div>
-        <div>
-            <label asp-for="Info" class="form-label">Info</label>
-            <div class="input-group has-validation">
-                <input type="text" class="form-control" name="info">
-                <br/>
-            </div>
-        </div>
-        <div>
-            <label asp-for="Color" class="form-label">Color</label>
-            <div class="input-group has-validation">
-                <input type="text" class="form-control" name="color">
-                <br/>
-            </div>
-        </div>
-        <div>
-            <label asp-for="Price" class="form-label">Price</label>
-            <div class="input-group has-validation">
-                <input type="text" class="form-control" name="price">
-                <br/>
-            </div>
-        </div>
-        <div>
-            <label asp-for="Price" class="form-label">Image</label>
+
+
+        <div class="d-flex flex-column col-5 justify-content-between">
+            <label class="form-label lead">Image</label>
             <div class="input-group has-validation">
                 <input type="file" class="form-control" name="image">
                 <br/>
             </div>
+            <div class="image-preview justify-content-center d-flex">
+            </div>
+            <input id="sbm" type="button" class="btn btn-dark" value="OK" />
         </div>
-
-        <input id="sbm" type="button" class="btn btn-primary" value="OK" />
     </form>
 </body>
+<script src="account.js"></script>
 <script src="edit.js"></script>
 
 </html>

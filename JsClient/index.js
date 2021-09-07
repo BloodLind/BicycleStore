@@ -14,7 +14,6 @@ async function getApiData() {
     });
     if (response.ok == true) {
         let Bicycles = (await response.json());
-        console.log(Bicycles);
         let table = document.querySelector('tbody');
         Bicycles.forEach(element => table.append(createRow(element)));
     }
@@ -36,7 +35,7 @@ function createRow(bicycle) {
     let edit = document.createElement('a');
     edit.href = 'edit.html' + '?id=' + bicycle.id;
     edit.innerText = 'Edit';
-    edit.classList.add('btn', 'btn-primary', 'bg-primary');
+    edit.classList.add('btn', 'btn-dark', 'bg-dark');
 
     let del = document.createElement('a');
     del.classList.add('btn', 'btn-danger', 'bg-danger', 'remove-btn');
@@ -45,7 +44,7 @@ function createRow(bicycle) {
 
     del.addEventListener('click', function(e) {
         let value = e.target.getAttribute('value');
-        var row = document.getElementById( value);
+        var row = document.getElementById(value);
         document.querySelector('tbody').removeChild(row);
         fetch(apikey + value, { method: 'DELETE' });
     });
