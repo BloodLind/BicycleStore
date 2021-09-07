@@ -11,7 +11,6 @@ initLoginForm();
 function initLoginForm() {
     document.getElementById('submitLogin').addEventListener('click', function() {
         getTokenAsync()
-        document.location.href.replace('index.html');
     })
 }
 
@@ -33,7 +32,11 @@ async function getTokenAsync() {
         sessionStorage.setItem(user.firstname, data.firstname);
         sessionStorage.setItem(user.secondname, data.secondname);
         sessionStorage.setItem(user.email, data.email);
+        document.location.href = 'index.html';
     } else {
-        console.log(response.status, data.errorText)
+        var massage = document.createElement('pre');
+        massage.classList.add('text-danger', 'h3', 'text-center');
+        massage.innerText = "Wrong password or login!";
+        document.querySelector('body').appendChild(massage);
     }
 }

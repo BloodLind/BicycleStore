@@ -9,37 +9,45 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <title>Document</title>
 </head>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bicycles JS Api Test</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="index.html">Home</a>
-                    </li>
-                </ul>
-
-
-            </div>
-        </div>
-    </nav>
-</header>
 
 <body class="d-flex flex-column justify-content-center">
-    <div id="loginForm" class="col-10 flex-column d-flex justify-content-center">
-        <label for="login">Login: </label>
-        <input type="text" class="form-input" id="login" />
-        <label for="password">Password: </label>
-        <input type="password" class="form-input" id="password" />
-        <button id="submitLogin" class="btn-primary btn bg-primary">Login</button>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bicycles JS Api Test</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="index.html">Home</a>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="d-flex flex-row align-items-center justify-content-center col-10">
+        <div class="col-5 p-3 d-flex flex-row">
+            <div>
+                <img src="drawable/logo.png" class="w-100">
+            </div>
+        </div>
+        <div id="loginForm" class="col-5 p-3 flex-column d-flex justify-content-center">
+            <label for="login" class="lead mt-2 mb-2">Login: </label>
+            <input type="text" class="form-input mt-2 mb-2" id="login" />
+            <label for="password" class="lead mt-2 mb-2">Password: </label>
+            <input type="password" class="form-input mt-2 mb-2" id="password" />
+            <button id="submitLogin" class="btn-dark btn bg-dark mt-3">Login</button>
+        </div>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-<script src="account.js"></script>
 <script src="login.js"></script>
 
 </html>

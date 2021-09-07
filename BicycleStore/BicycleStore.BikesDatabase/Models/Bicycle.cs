@@ -31,9 +31,8 @@ namespace BicycleStore.BikesDatabase.Models
         public Guid Id { get ; set; }
         [UnFiltered]
 
-        public Guid PhotoId { get; set; }
+        public Guid? PhotoId { get; set; } = null;
         [UnFiltered]
-
-        public Photo Photo { set; get; }
+        public Photo Photo { set; get; } = null;
     }
 }

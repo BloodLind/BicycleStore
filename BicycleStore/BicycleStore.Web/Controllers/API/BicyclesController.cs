@@ -30,7 +30,7 @@ namespace BicycleStore.Web.Controllers.API
         {
 
           
-            return await Task.Run(() => repository.Get(id));
+            return await Task.Run(() => repository.GetAll().Include(x => x.Photo).First(x => x.Id == id));
         }
 
         [HttpGet]
@@ -61,11 +61,7 @@ namespace BicycleStore.Web.Controllers.API
                 return RedirectToAction("CreateOrEditBicycle", "Admin", (bicycle.Id));
             }
 
-            //if(!GetImageTypes().Contains(Path.GetExtension(image.FileName)))
-            //{
-            //    ModelState.AddModelError("", "its not image");
-            //    return RedirectToAction("CreateOrEditBicycle", "Admin", (bicycle.Id));
-            //}
+            
 
 
 
